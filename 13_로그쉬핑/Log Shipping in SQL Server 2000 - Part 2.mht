@@ -1,0 +1,2666 @@
+From: <Microsoft Internet Explorer 5·Î ÀúÀå>
+Subject: Log Shipping in SQL Server 2000 - Part 2
+Date: Tue, 19 Dec 2006 09:27:28 +0900
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0065_01C7234F.E6BC5800"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.3790.2826
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/logship2.mspx?pf=true
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML dir=3Dltr><HEAD><TITLE>Log Shipping in SQL Server 2000 - Part =
+2</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3Den-us name=3DMS.LOCALE>
+<META=20
+content=3D"Change the roles of primary and secondary SQL servers, fully =
+reverse their roles, and place a monitor server for the most effective =
+monitoring."=20
+name=3Ddescription>
+<META content=3D"log shipping,sql server,monitor,availability" =
+name=3Dkeywords>
+<META content=3DMNP2.GenericArticle name=3Dsearch.mnp.template>
+<META=20
+content=3DLKOOIPGGICMLKCOJAKKAKOLGJAOCJOBP;OEEAJNMOPJFOKALBAPHKOBFMPAMBJO=
+MG;ADOPOBEMPPDGKIBBOPEEDEPICOPIBCAD=20
+name=3DaudiencemsCustomerSegment>
+<META content=3D6A5F978F2506442D86C27F294468D8C9 name=3DcontentLevel>
+<META content=3DKKAPHBCHGJPGKOFHOFJLIPLGDIHMGJKO name=3DcontentType>
+<META =
+content=3DIBKBCJFMFFJGKBPNPHOOBKFPHPANFMFO;PHIDFDAADEJMKILFOIHKBGPHLGKKCL=
+HJ=20
+name=3DsubjectGeneral>
+<META content=3DEHOPKIKINAADKBAPBLGGDIDEEENMPJGJ =
+name=3DsubjectgenericProdTech>
+<META =
+content=3DMBCPLLLKJLNOKFFFBHNAIJLGHNDJLGIL;CBBIJGJINNNOKPPDANINOKPDADFLPP=
+CP=20
+name=3Dsubjectlifecycle><LINK=20
+href=3D"http://www.microsoft.com/TechNet/mnp_utility.mspx/templatecss?tem=
+plate=3D%2flibrary%2fgallery%2ftemplates%2fMNP2.GenericArticle&amp;shell=3D=
+%2ftechnet%2fprodtechnol%2fsql%2fconfig_2000.xml&amp;locale=3Den-us"=20
+type=3Dtext/css rel=3DStylesheet><LINK=20
+href=3D"http://www.microsoft.com/library/mnp/2/aspx/css.aspx?locale=3Den-=
+us&amp;name=3DFooter&amp;static=3DPage"=20
+type=3Dtext/css rel=3DStylesheet>
+<SCRIPT language=3DJavascript=20
+src=3D"http://www.microsoft.com/library/mnp/2/aspx/js.aspx?&amp;path=3D/l=
+ibrary/gallery/components/ratingcontrol/ratingcontrol.js"=20
+type=3Dtext/javascript></SCRIPT>
+<LINK=20
+href=3D"http://www.microsoft.com/library/toolbar/3.0/css.aspx?c=3D/techne=
+t/prodtechnol/sql/config_2000.xml"=20
+type=3Dtext/css rel=3Dstylesheet>
+<SCRIPT language=3DJavaScript>var doImage=3DdoImage;var TType=3DTType;
+function mhHover(tbl,idx,cls){var =
+t,d;if(document.getElementById)t=3Ddocument.getElementById(tbl);else =
+t=3Ddocument.all(tbl);if(t=3D=3Dnull)return;if(t.getElementsByTagName)d=3D=
+t.getElementsByTagName("TD");else =
+d=3Dt.all.tags("TD");if(d=3D=3Dnull)return;if(d.length<=3Didx)return;d[id=
+x].className=3Dcls;}
+function footerjs(doc){if(doImage=3D=3Dnull){var =
+tt=3DTType=3D=3Dnull?"PV":TType;doc.write('<layer =
+visibility=3D"hide"><div style=3D"display:none"><img =
+src=3D"http://c.microsoft.com/trans_pixel.asp?source=3Dwww&TYPE=3D' + tt =
++ =
+'&p=3Dtechnet_prodtechnol_sql_2000_maintain&URI=3D%2ftechnet%2fprodtechno=
+l%2fsql%2f2000%2fmaintain%2flogship2.mspx%3fpf%3dtrue&GUID=3D1F4FC18C-F71=
+E-47FB-8FC9-612F8EE59C61&lc=3Den-us" width=3D0 height=3D0 hspace=3D0 =
+vspace=3D0 border=3D0 alt=3D""/></div></layer>');}}</SCRIPT>
+
+<META content=3D_technet_prodtechnol_sql_ name=3DWT.sp>
+<SCRIPT language=3DJavaScript=20
+src=3D"http://js.microsoft.com/library/svy/broker.js"></SCRIPT>
+
+<SCRIPT language=3DJavascript>=0A=
+					if (self.name =3D=3D "MNPMainFrame") top.location.href =3D =
+self.location.href;=0A=
+				</SCRIPT>
+
+<META content=3Dfavorite name=3Dsave>
+<META content=3DNoIndex name=3DRobots>
+<META content=3DNoFollow name=3DRobots>
+<META content=3D"NoIndex, NoFollow" name=3DRobots>
+<META content=3D"MSHTML 6.00.3790.2817" name=3DGENERATOR></HEAD>
+<BODY bgColor=3D#ffffff leftMargin=3D0 topMargin=3D0 marginheight=3D"0" =
+marginwidth=3D"0"><!--NOINDEX_START--><A name=3Dtop></A>
+<SCRIPT language=3Djavascript>var IsPrinterFriendly =3D true;</SCRIPT>
+
+<TABLE id=3DmnpMastheadTable dir=3Dltr cellSpacing=3D0 cellPadding=3D0 =
+width=3D"100%"=20
+bgColor=3D#ffffff border=3D0>
+  <TBODY>
+  <TR>
+    <TD style=3D"PADDING-RIGHT: 16px; PADDING-LEFT: 16px" vAlign=3Dtop=20
+      width=3D"100%"><IMG title=3D"" height=3D18 alt=3D" "=20
+      =
+src=3D"http://www.microsoft.com/library/toolbar/3.0/text.aspx?t=3DIA%3d%3=
+d&amp;f=3D5D5D5D&amp;b=3DFFFFFF&amp;font=3DSegoe%2c+9pt&amp;w=3D200&amp;h=
+=3D18&amp;a=3D0&amp;l=3D1&amp;v=3D3&amp;c=3D%2fN4IfdFoTJo%2bGh8TJmxVbU1yy=
+Fk%3d"=20
+      width=3D200 border=3D0></TD></TR>
+  <TR>
+    <TD style=3D"PADDING-RIGHT: 6px; PADDING-LEFT: 6px" vAlign=3Dtop=20
+      width=3D"100%"><IMG=20
+      =
+src=3D"http://www.microsoft.com/library/toolbar/3.0/images/banners/TechNe=
+tB_masthead_ltr.gif"></TD></TR>
+  <TR>
+    <TD style=3D"PADDING-RIGHT: 20px; PADDING-LEFT: 20px" vAlign=3Dtop=20
+      width=3D"100%"><DIV=20
+style=3D"BORDER-TOP: #ccc 1px solid"></DIV></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+  <TBODY>
+  <TR vAlign=3Dtop>
+    <TD dir=3Dltr width=3D"100%">
+      <DIV=20
+      style=3D"PADDING-RIGHT: 15px; PADDING-LEFT: 20px; PADDING-BOTTOM: =
+0px; PADDING-TOP: 0px">
+      <DIV class=3DancestorLinks><NOBR><A=20
+      href=3D"http://technet.microsoft.com/">TechNet Home</A> &gt; =
+</NOBR><NOBR><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/default.mspx">Produc=
+t=20
+      &amp; Technologies</A> &gt; </NOBR><NOBR><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/default.mspx">SQ=
+L=20
+      Server TechCenter Home</A> &gt; </NOBR><NOBR><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/default.msp=
+x">SQL=20
+      Server 2000</A> &gt; </NOBR><NOBR><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/de=
+fault.mspx">Maintain</A></NOBR></DIV>
+      <H1>Log Shipping in SQL Server 2000 - Part 2</H1>
+      <DIV class=3Ddate>Updated: April 11, 2002</DIV>
+      <DIV class=3Doverview>
+      <P><B>Role changes, role reversals, and positioning the monitor=20
+      server</B></P>
+      <P>By <B>Ron Talmage</B></P>
+      <P>This article is from the January 2002 issue of <A=20
+      href=3D"http://www.sqlmag.com/">SQL Server Magazine</A>.</P>
+      <P>When your production database server goes down=97as the result =
+of planned=20
+      maintenance or an unexpected event=97you want to feel secure in =
+the=20
+      knowledge that the database is intact on a standby server. A =
+well-designed=20
+      log shipping operation, which ships a database's transaction logs =
+from=20
+      your primary server to a standby server, can give you this =
+confidence. SQL=20
+      Server 2000 Enterprise Edition and SQL Server 2000 Developer =
+Edition=20
+      support log shipping as a built-in Enterprise Manager utility. The =
+
+      <I>Microsoft SQL Server 2000 Resource Kit </I>comes with a set of=20
+      unsupported stored procedures for log shipping in other SQL Server =
+2000=20
+      editions (see the sidebar "Simple Log Shipping in SQL Server 2000 =
+Standard=20
+      Edition," page 36, for details), and the <I>Microsoft BackOffice =
+Resource=20
+      Kit (BORK)</I> 4.5 provides an unsupported method of log shipping =
+for SQL=20
+      Server 7.0. In <A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship1.mspx">"Log=20
+      Shipping in SQL Server 2000, Part 1," December 2001</A>, =
+InstantDoc ID=20
+      23056, I described how to set up, reconfigure, and monitor log =
+shipping.=20
+      In this article, let's look at how you can change the roles of the =
+primary=20
+      and secondary servers, how to fully reverse their roles, and where =
+to=20
+      place the monitor server for the most effective =
+monitoring.</P></DIV>
+      <CENTER><IMG title=3D"" height=3D6 alt=3D*=20
+      =
+src=3D"http://img.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/3squares.gif"=20
+      width=3D30 border=3D0></CENTER>
+      <DIV style=3D"HEIGHT: 18px"></DIV>
+      <TABLE style=3D"MARGIN-LEFT: 15px" cellSpacing=3D0 cellPadding=3D0 =
+width=3D165=20
+      align=3Dright border=3D0>
+        <TBODY>
+        <TR>
+          <TD>
+            <DIV class=3DsidebarHeader></DIV>
+            <DIV class=3DsidebarContent=20
+            style=3D"PADDING-RIGHT: 1px; PADDING-LEFT: 1px; =
+PADDING-BOTTOM: 0px; WIDTH: 165px; PADDING-TOP: 0px">
+            <DIV class=3DsidebarClass>
+            <P><A=20
+            =
+href=3D"https://store.pentontech.com/index.cfm?s=3D9&amp;cid=3D49&amp;pro=
+motionid=3D2180"><IMG=20
+            height=3D57 alt=3DLink=20
+            =
+src=3D"http://img.microsoft.com/library/media/1033/technet/images/prodtec=
+hnol/sql/2000/deploy/logsh06.gif"=20
+            width=3D231 border=3D0></A><BR><A=20
+            =
+href=3D"https://store.pentontech.com/index.cfm?s=3D9&amp;cid=3D49&amp;pro=
+motionid=3D2180">Click=20
+            to Order</A></P></DIV></DIV>
+            <DIV class=3DsidebarFooter></DIV></TD></TR></TBODY></TABLE>
+      <H5 style=3D"PADDING-TOP: 2px">On This Page</H5>
+      <TABLE style=3D"MARGIN-TOP: 7px; MARGIN-BOTTOM: 12px" =
+cellSpacing=3D0=20
+      cellPadding=3D0 border=3D0>
+        <TBODY>
+        <TR vAlign=3Dtop>
+          <TD><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EBD"><IMG=20
+            height=3D9 alt=3D"Changing Roles" hspace=3D4=20
+            =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_down.gif"=20
+            width=3D7 vspace=3D2 border=3D0></A></TD>
+          <TD class=3DonThisPage><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EBD">Changing=20
+            Roles</A></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EIF"><IMG=20
+            height=3D9 alt=3D"Reversing Roles" hspace=3D4=20
+            =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_down.gif"=20
+            width=3D7 vspace=3D2 border=3D0></A></TD>
+          <TD class=3DonThisPage><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EIF">Reversing=20
+            Roles</A></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#E2F"><IMG=20
+            height=3D9 alt=3D"Where to Place the Log Shipping Monitor" =
+hspace=3D4=20
+            =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_down.gif"=20
+            width=3D7 vspace=3D2 border=3D0></A></TD>
+          <TD class=3DonThisPage><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#E2F">Where=20
+            to Place the Log Shipping Monitor</A></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EAG"><IMG=20
+            height=3D9 alt=3D"A Significant Improvement" hspace=3D4=20
+            =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_down.gif"=20
+            width=3D7 vspace=3D2 border=3D0></A></TD>
+          <TD class=3DonThisPage><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#EAG">A=20
+            Significant Improvement</A></TD></TR></TBODY></TABLE><A =
+name=3DEBD></A>
+      <H2>Changing Roles</H2>
+      <P>Log shipping from a primary to a secondary server lets you use =
+the=20
+      secondary server in place of the primary server, if necessary. If =
+a=20
+      failure or a planned outage (e.g., for a hardware upgrade or a =
+service=20
+      pack installation) on the primary server requires you to take the=20
+      production database out of service for an extended period of time, =
+you can=20
+      change the role of the secondary server database, bringing it into =
+
+      production as a substitute for the primary server. SQL Server 2000 =
+
+      <I>Books Online (BOL)</I> calls this operation a <I>log shipping =
+role=20
+      change.</I> During log shipping, you maintain the secondary server =
+
+      database in a nonrecovered state so that you can restore =
+transaction logs=20
+      from the primary server to the secondary server database. (As soon =
+as you=20
+      recover a database, you can no longer restore transaction logs to =
+it.) In=20
+      a role change, you recover the secondary server database and =
+designate it=20
+      as the new primary server database. You can also specify that the =
+old=20
+      primary server database will become the new secondary database. If =
+the old=20
+      primary database is undamaged, you can reestablish log shipping =
+from the=20
+      new primary server database to the old primary server, which =
+becomes the=20
+      new secondary server database. Let's call this type of switch a =
+<I>role=20
+      reversal.</I></P>
+      <P>Although SQL Server 2000 provides an Enterprise Manager utility =
+for=20
+      setting up and monitoring log shipping, it provides only limited =
+support=20
+      for log shipping role changes, which you accomplish by manually =
+applying=20
+      system stored procedures from the msdb database. You can find =
+complete=20
+      directions for performing a role change in the SQL Server =
+<I>BOL</I>=20
+      article "How to Set Up and Perform a Log Shipping Role Change=20
+      (Transact-SQL)." I've revised these directions into a set of six =
+basic=20
+      steps: transferring and exporting logins, demoting the primary =
+server,=20
+      promoting the secondary server, informing the monitor server of =
+the role=20
+      change, resolving the logins on the secondary server, and linking =
+database=20
+      access to permissions. Let's take a look at each step in =
+detail.</P>
+      <P><B><I>Step 1: Transferring and exporting logins.</I></B> First, =
+
+      <I>BOL</I> recommends building a SQL Server 2000 Data =
+Transformation=20
+      Services (DTS) package to transfer logins from the primary server =
+to the=20
+      secondary server and to resolve login SIDs across distinct =
+servers. (The=20
+      DTS Transfer Logins task, which you use to transfer the logins, is =
+
+      available only in SQL Server 2000 DTS.) You create and save the =
+DTS=20
+      package on the primary server, then set up the package execution =
+by=20
+      invoking dtsrun.exe through a SQL Server Agent job on the primary =
+server.=20
+      The package execution transfers the logins from one server to the =
+other,=20
+      but it doesn't resolve their login SIDs. (I describe resolving =
+logins in a=20
+      later step.) However, to be able to resolve login IDs later, you =
+must=20
+      first create a file containing an export of the primary server's =
+syslogins=20
+      table.</P>
+      <P>To export the logins to the secondary server, the <I>BOL</I> =
+article=20
+      recommends that you create a two-stage SQL Server Agent job: bcp =
+out and=20
+      copy. In the first step, you export the logins to a file by using =
+bcp in=20
+      native mode. In the second step, you copy the logins to a file on =
+the=20
+      secondary server that you can use later for resolving logins =
+during the=20
+      role change. At that point (Step 5), you use the sp_resolve_logins =
+stored=20
+      procedure to resolve login SIDs on the secondary server. After you =
+create=20
+      the job, you can run it at regular intervals (e.g., nightly) to =
+keep an=20
+      up-to-date exported file of logins on the secondary server in case =
+you=20
+      need to make a log shipping role change.</P>
+      <P><B><I>Step 2: Demoting the primary server.</I></B> To take the =
+primary=20
+      server out of its role as the source of log shipping, you "demote" =
+it to a=20
+      lesser position. You can demote the primary server source database =
+from a=20
+      production server to a potential secondary server and remove it =
+from log=20
+      shipping by executing the sp_change_primary_role stored procedure =
+on the=20
+      primary server. Listing 1 shows the stored procedure that changes =
+a log=20
+      shipping database called Pubscopy from read/write mode to =
+read-only=20
+      standby mode, ready to receive transaction-log backups. The stored =
+
+      procedure removes the primary server database from the log =
+shipping plan=20
+      in several steps. The parameters tell the stored procedure to make =
+one=20
+      last transaction-log backup, terminate all users in the database, =
+then put=20
+      the database into a standby final state and into a multiuser =
+access level.=20
+      The stored procedure's return code states whether the BACKUP LOG =
+statement=20
+      succeeded.</P><PRE class=3DcodeSample>Listing 1: Stored Procedure =
+That Demotes a Log S=20
+hipping Database from Read/Write=20
+Mode to Read-Only Mode=20
+USE master=20
+GO=20
+EXEC msdb.dbo.sp_change_primary_role=20
+   @db_name =3D 'Pubscopy',=20
+   @backup_log =3D 1,=20
+   @terminate =3D 1,=20
+   @final_state =3D 3,=20
+   @access_level =3D 1=20
+</PRE>
+      <P><B><I>Step 3: Promoting the secondary server.</I></B> The next =
+step is=20
+      to promote the current secondary server database to a recovered =
+state so=20
+      that it can be used in place of the original production database =
+and can=20
+      become a possible primary log shipping database. On the secondary =
+server,=20
+      after you make sure no other users are accessing the database, you =
+can=20
+      execute the sp_change_secondary_role stored procedure, which =
+Listing 2=20
+      shows.</P><PRE class=3DcodeSample>Listing 2: Code That Promotes =
+the Secondary=20
+Server Database to a Primary Server Database=20
+USE master=20
+GO=20
+EXEC msdb.dbo.sp_change_secondary_role=20
+   @db_name =3D 'Pubscopy',=20
+   @do_load =3D 1,=20
+   @force_load =3D 1,=20
+   @final_state =3D 1,=20
+   @access_level =3D 1,=20
+   @terminate =3D 1,=20
+   @keep_replication =3D 0,=20
+   @stopat =3D null=20
+</PRE>
+      <P>The parameters cause the stored procedure to attempt to copy =
+all=20
+      remaining log files from the former primary server and load all =
+the=20
+      remaining copied transaction logs to the secondary server. Passing =
+the=20
+      @do_load =3D 1 parameter makes a last copy and load of all =
+remaining=20
+      transaction logs, and passing the @force_load =3D 1 parameter =
+specifies the=20
+      undocumented Forceload option on sqlmaint.exe. The @final_state =
+=3D 1=20
+      parameter puts the new primary database in recovery mode, and the=20
+      @access_level parameter sets the access back to multiuser. The =
+@terminate=20
+      =3D 1 parameter causes the stored procedure to terminate all users =
+accessing=20
+      the database by issuing the ALTER DATABASE command with the =
+ROLLBACK=20
+      IMMEDIATE option. However, if you keep your own Enterprise Manager =
+
+      connection to the database open while you execute the stored =
+procedure,=20
+      the ALTER DATABASE action will fail, so you might need to manually =
+ensure=20
+      that you've removed all your own connections to the database. =
+Last, if the=20
+      database is a publishing replication database, the =
+@keep_replication =3D 0=20
+      parameter will maintain the server's replication settings.</P>
+      <P>The sp_change_secondary_role stored procedure requires =
+exclusive use of=20
+      the database and will fail if it doesn't have it. I've seen this =
+procedure=20
+      fail and report that the database is in use even when I knew that =
+no users=20
+      were accessing the database. Just rerunning the stored procedure =
+solved=20
+      the problem.</P>
+      <P>When the stored procedure finishes and brings the database =
+online, it=20
+      will send a message stating that the RESTORE DATABASE command =
+succeeded.=20
+      If you opted to make the secondary server a potential future =
+primary=20
+      server, the database maintenance plan will create a =
+transaction-log backup=20
+      job on the secondary server. After this job starts, =
+transaction-log backup=20
+      files will start appearing on the new primary server. You might =
+need these=20
+      files to establish log shipping back to the new secondary =
+server.</P>
+      <P><B><I>Step 4: Informing the monitor server of the role =
+change.</I></B>=20
+      SQL Server 2000 log shipping installs a monitoring utility on a =
+monitor=20
+      server, preferably a third server. To notify the monitor server of =
+the=20
+      role change, you now need to execute on the monitor server the=20
+      sp_change_monitor_role stored procedure, which Listing 3 shows. =
+Despite=20
+      its name, this stored procedure doesn't change the monitor's role. =
+
+      Instead, the stored procedure changes the references to secondary =
+and=20
+      primary server file shares. That is, it deletes rows in the =
+monitor=20
+      server's log_shipping_secondaries table that referenced the old =
+secondary=20
+      server, then replaces the old primary server name with the new =
+primary=20
+      server name in the log_shipping_primaries table. The stored =
+procedure=20
+      doesn't insert rows into the log_shipping_secondaries table =
+because a log=20
+      shipping pair doesn't yet exist.</P><PRE =
+class=3DcodeSample>Listing 3: Stored Procedure That Informs the=20
+Monitor Server of the Role Change=20
+USE master=20
+GO=20
+EXEC msdb.dbo.sp_change_monitor_role=20
+   @primary_server =3D 'oahu\sql2k_1' ,=20
+   @secondary_server =3D 'oahu\sql2k_2',=20
+   @database =3D 'Pubscopy',=20
+   @new_source =3D 'oahu\sql2k_2'=20
+</PRE>
+      <P><B><I>Step 5: Resolving the logins on the secondary =
+server.</I></B>=20
+      Resolving the old primary server logins on the new primary server =
+lets=20
+      users access the new primary server. You can resolve the logins on =
+the new=20
+      production server by using the logins file that you exported in =
+Step 1.=20
+      The sp_resolve_logins stored procedure reads the exported logins =
+file,=20
+      then resolves the differing SIDs between the servers. For example, =
+Listing=20
+      4 shows how you can execute the sp_resolve_logins stored procedure =
+to=20
+      resolve the logins on the newly recovered Pubscopy database. The=20
+      <I>BOL</I> article says you must run this stored procedure in the =
+target=20
+      database. But in fact, sp_resolve_logins makes an unqualified =
+reference to=20
+      the syslogins view, so you must run the stored procedure from the =
+master=20
+      database.</P><PRE class=3DcodeSample>Listing 4: Stored Procedure =
+That Resolves=20
+Logins on the Secondary Server=20
+USE master=20
+GO=20
+EXEC sp_resolve_logins=20
+   @dest_db =3D 'Pubscopy',=20
+   @dest_path =3D 'd:\',=20
+   @filename =3D 'syslogins.dat'=20
+</PRE>
+      <P><B><I>Step 6: Linking database access to permissions.</I></B> =
+The=20
+      <I>BOL</I> article ends its discussion of role changes at Step 5, =
+but it=20
+      omits an important step: coordinating database access with =
+permissions for=20
+      the transferred logins. To link the transferred and resolved =
+logins with=20
+      their corresponding database users and permissions, in the new =
+primary=20
+      server's production database, you need to execute the=20
+      sp_change_users_login stored procedure once for each =
+login:</P><PRE class=3DcodeSample>USE pubscopy=20
+GO=20
+EXEC sp_change_users_login 'Update_One', 'UserName', 'LoginName'=20
+</PRE>
+      <P>Executing this stored procedure ensures that the SQL Server =
+logins link=20
+      correctly to their corresponding usernames in the database.</P>
+      <P>At this point, you've successfully promoted the secondary =
+server to its=20
+      new role, and the old primary server is ready to become a =
+secondary=20
+      server. However, you still haven't established a log shipping=20
+      relationship. You've made a <I>role change</I> but not a <I>role=20
+      reversal.</I></P>
+      <DIV style=3D"MARGIN-TOP: 3px; MARGIN-BOTTOM: 10px"><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top"><IMG=20
+      height=3D9 alt=3D"Top of page"=20
+      =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_up.gif"=20
+      width=3D7 border=3D0></A><A class=3DtopOfPage=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top">Top=20
+      of page</A></DIV><A name=3DEIF></A>
+      <H2>Reversing Roles</H2>
+      <P>To accomplish a full log shipping role reversal, you only need =
+to set=20
+      up log shipping from the new primary server to the new secondary =
+server.=20
+      Because the new primary server contains a new database maintenance =
+plan,=20
+      your natural inclination is to add the new secondary server as a=20
+      destination server in that plan. However, after repeatedly trying =
+to add=20
+      the new secondary server as a destination server, I found that the =
+
+      transaction-log backup job on the new primary server fails, and =
+log=20
+      shipping won't start from the new primary server to the new =
+secondary=20
+      server.</P>
+      <P>You need an alternative strategy. After you apply the log =
+shipping=20
+      role-change stored procedures and tasks that I detailed earlier, =
+you can=20
+      complete a full role reversal by setting up a new log shipping =
+plan from=20
+      the new primary server to the old secondary server. To set up the =
+plan,=20
+      you need to take the following steps:</P>
+      <TABLE class=3DnumberedList cellSpacing=3D0 cellPadding=3D0 =
+border=3D0>
+        <TBODY>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>1.</P></TD>
+          <TD>
+            <P>Remove log shipping from the database maintenance plan on =
+the new=20
+            primary server.</P></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>2.</P></TD>
+          <TD>
+            <P>Delete the database maintenance plan on the primary=20
+        server.</P></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>3.</P></TD>
+          <TD>
+            <P>Delete the database maintenance plan on the secondary=20
+          server.</P></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>4.</P></TD>
+          <TD>
+            <P>Retain all transaction log files.</P></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>5.</P></TD>
+          <TD>
+            <P>Create a new database maintenance plan on the new primary =
+server,=20
+            specifying the new secondary server and database and =
+appropriate=20
+            transaction-log file locations, as I described in Part 1 of =
+this=20
+            series.</P></TD></TR>
+        <TR vAlign=3Dtop>
+          <TD class=3DlistNumber noWrap align=3Dright>
+            <P>6.</P></TD>
+          <TD>
+            <P>Resume application activity on the new primary=20
+        server.</P></TD></TR></TBODY></TABLE>
+      <P>After you set up the role reversal and the new log shipping =
+pair,=20
+      Enterprise Manager's Log Shipping Monitor might report that the =
+new=20
+      secondary server database is out of sync with the new primary =
+server=20
+      database. You'll receive this report if the time difference =
+between the=20
+      last transaction log loaded and the transaction-log backup from =
+the new=20
+      primary server exceeds the out-of-sync threshold. If you wait =
+until the=20
+      load job loads the latest backup file, the Log Shipping Monitor =
+status=20
+      will return to its usual error-free state.</P>
+      <DIV style=3D"MARGIN-TOP: 3px; MARGIN-BOTTOM: 10px"><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top"><IMG=20
+      height=3D9 alt=3D"Top of page"=20
+      =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_up.gif"=20
+      width=3D7 border=3D0></A><A class=3DtopOfPage=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top">Top=20
+      of page</A></DIV><A name=3DE2F></A>
+      <H2>Where to Place the Log Shipping Monitor</H2>
+      <P>As I explained in Part 1, Microsoft strongly recommends that =
+you put=20
+      the log shipping monitor on its own server. On an independent =
+server, the=20
+      monitor can raise alerts if either the primary server or secondary =
+server=20
+      fails to do its job. If the monitor were on either the primary or=20
+      secondary server, its reporting would depend on that server. And =
+if the=20
+      server that the monitor is running on failed, the monitor couldn't =
+report=20
+      an error. So, to let the monitor report errors from either the =
+primary or=20
+      secondary log shipping server, giving the monitor its own server =
+is the=20
+      better course of action. In addition, you can use the independent =
+monitor=20
+      server to monitor other log shipping pairs.</P>
+      <P>If you don't have a separate server for the monitor utility and =
+need to=20
+      put it on either the primary server or the secondary server, which =
+server=20
+      would best house the Log Shipping Monitor? Because your main =
+concern will=20
+      probably be detecting a log shipping failure caused by a failure =
+of the=20
+      primary server, the best location is the secondary server. If you =
+put the=20
+      monitor on the primary server and the primary server goes down, =
+you won't=20
+      be able to access the monitor, and the monitor can't alert you =
+that log=20
+      shipping has failed. So, if you must work with only two servers, =
+the=20
+      secondary server is a better location for the Log Shipping =
+Monitor.</P>
+      <P>Sometimes you must ship transaction logs from one physical =
+location to=20
+      another, over some distance, to prevent disasters from affecting =
+the=20
+      secondary server. In that case, the best location for the Log =
+Shipping=20
+      Monitor is on its own server in a separate location, protected =
+from=20
+      disasters that might occur to either the primary or secondary =
+server.</P>
+      <DIV style=3D"MARGIN-TOP: 3px; MARGIN-BOTTOM: 10px"><A=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top"><IMG=20
+      height=3D9 alt=3D"Top of page"=20
+      =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_up.gif"=20
+      width=3D7 border=3D0></A><A class=3DtopOfPage=20
+      =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top">Top=20
+      of page</A></DIV><A name=3DEAG></A>
+      <H2>A Significant Improvement</H2>
+      <P>Setting up and monitoring log shipping in SQL Server 2000 is =
+supported=20
+      by Enterprise Manager's built-in utilities. However, making role =
+changes=20
+      and role reversals requires extra work. Because Enterprise =
+Manager's log=20
+      shipping utility can't make a log shipping role change, you have =
+to=20
+      manually apply stored procedures. Furthermore, making a full role =
+reversal=20
+      requires workaround steps. And Enterprise Manager's log shipping =
+utility=20
+      doesn't provide a method for scripting the log shipping setup or =
+removal,=20
+      as it does for replication. Nevertheless, the SQL Server 2000 log =
+shipping=20
+      utility represents a significant improvement over earlier =
+utilities by=20
+      making setup and monitoring easy and intuitive.</P>
+      <P>=A9 2002 <I>SQL Server Magazine</I>. All rights reserved.</P>
+      <P>Subscribe to <I>SQL Server Magazine</I> today =96 with a NO =
+RISK offer:=20
+      <A=20
+      =
+href=3D"https://store.pentontech.com/index.cfm?s=3D9&amp;cid=3D49&amp;pro=
+motionid=3D2180">https://store.pentontech.com/index.cfm?s=3D9&amp;cid=3D4=
+9&amp;promotionid=3D2180</A>.</P>
+      <P>Get the latest news, products, and developments for SQL Server =
+DBAs and=20
+      developers with <I>SQL Server UPDATE</I>, a free email newsletter. =
+Click=20
+      here to subscribe: <A=20
+      =
+href=3D"http://email.winnetmag.com/winnetmag/winnetmag_prefctr.asp">http:=
+//email.winnetmag.com/winnetmag/winnetmag_prefctr.asp</A>.</P>
+      <P>We at Microsoft Corporation hope that the information in this =
+work is=20
+      valuable to you. Your use of the information contained in this =
+work,=20
+      however, is at your sole risk. All information in this work is =
+provided=20
+      "as -is", without any warranty, whether express or implied, of its =
+
+      accuracy, completeness, fitness for a particular purpose, title or =
+
+      non-infringement, and none of the third-party products or =
+information=20
+      mentioned in the work are authored, recommended, supported or =
+guaranteed=20
+      by Microsoft Corporation. Microsoft Corporation shall not be =
+liable for=20
+      any damages you may sustain by using this information, whether =
+direct,=20
+      indirect, special, incidental or consequential, even if it has =
+been=20
+      advised of the possibility of such damages. All prices for =
+products=20
+      mentioned in this document are subject to change without =
+notice.</P><BR=20
+      style=3D"FONT-SIZE: 0pt" clear=3Dall>
+      <DIV style=3D"MARGIN-TOP: 16px; MARGIN-BOTTOM: 20px; WIDTH: 100%">
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+        <TBODY>
+        <TR>
+          <TD><A=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top"><IMG=20
+            height=3D9 alt=3D"Top of page"=20
+            =
+src=3D"http://www.microsoft.com/library/gallery/templates/MNP2.Common/ima=
+ges/arrow_px_up.gif"=20
+            width=3D7 border=3D0></A><A class=3DtopOfPage=20
+            =
+href=3D"http://www.microsoft.com/technet/prodtechnol/sql/2000/maintain/lo=
+gship2.mspx?pf=3Dtrue#top">Top=20
+            of =
+page</A></TD></TR></TBODY></TABLE></DIV></DIV></TD></TR></TBODY></TABLE>
+<STYLE>#msviFooter_pf {
+	BORDER-TOP: #ccc 1px solid; FONT: 70% Tahoma, Helvetica
+}
+#msviFooter_pf A {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #03c
+}
+#msviFooter_pf A:visited {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #03c
+}
+#msviFooter_pf A:hover {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #f60
+}
+</STYLE>
+
+<DIV style=3D"PADDING-RIGHT: 20px; PADDING-LEFT: 20px">
+<TABLE id=3DmsviFooter_pf cellSpacing=3D0 cellPadding=3D0>
+  <TBODY>
+  <TR vAlign=3Dbottom>
+    <TD width=3D"100%">
+      <DIV id=3DmsviLocalFooter><NOBR><A=20
+      href=3D"http://go.microsoft.com/?linkid=3D317027">Manage Your=20
+      Profile</A></NOBR><WBR></WBR></DIV>
+      <DIV id=3DmsviGlobalFooter><SPAN dir=3Dltr>=A9 2006 Microsoft =
+Corporation. All=20
+      rights reserved.</SPAN>&nbsp;<NOBR>&nbsp;<A=20
+      href=3D"http://go.microsoft.com/?linkid=3D4412892" =
+target=3D_parent>Terms of=20
+      Use</A>&nbsp;|</NOBR><WBR></WBR><NOBR>&nbsp;<A=20
+      href=3D"http://go.microsoft.com/?linkid=3D4412893"=20
+      =
+target=3D_parent>Trademarks</A>&nbsp;|</NOBR><WBR></WBR><NOBR>&nbsp;<A=20
+      href=3D"http://go.microsoft.com/?linkid=3D4412894" =
+target=3D_parent>Privacy=20
+      Statement</A></NOBR><WBR></WBR></DIV></TD>
+    <TD bgColor=3D#ffffff>&nbsp;<IMG title=3D"" height=3D29 =
+alt=3DMicrosoft=20
+      =
+src=3D"http://www.microsoft.com/library/toolbar/3.0/text.aspx?t=3DTQ%3d%3=
+d&amp;f=3D000000&amp;b=3DFFFFFF&amp;font=3DMicrosoft+Logo+95%2c+13.5pt&am=
+p;w=3D105&amp;h=3D29&amp;a=3D0&amp;l=3D0&amp;v=3D0&amp;c=3DiCuKhBbHd9I%2f=
+iZ7LyOa2BcbHA5M%3d"=20
+      width=3D105 border=3D0></TD></TR></TBODY></TABLE></DIV><LAYER =
+visibility=3D"hide">
+<DIV style=3D"DISPLAY: none"><IMG height=3D0 alt=3D"" hspace=3D0=20
+src=3D"http://c.microsoft.com/trans_pixel.asp?source=3Dwww&amp;TYPE=3DPV&=
+amp;p=3Dtechnet_prodtechnol_sql_2000_maintain&amp;URI=3D%2ftechnet%2fprod=
+technol%2fsql%2f2000%2fmaintain%2flogship2.mspx%3fpf%3dtrue&amp;GUID=3D1F=
+4FC18C-F71E-47FB-8FC9-612F8EE59C61&amp;lc=3Den-us"=20
+width=3D0 border=3D0></DIV></LAYER></BODY></HTML>
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: http://www.microsoft.com/library/toolbar/3.0/text.aspx?t=IA%3d%3d&f=5D5D5D&b=FFFFFF&font=Segoe%2c+9pt&w=200&h=18&a=0&l=1&v=3&c=%2fN4IfdFoTJo%2bGh8TJmxVbU1yyFk%3d
+
+/9j/4AAQSkZJRgABAQEAGAAYAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAASAMgDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+/iii
+igAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKK
+ACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.microsoft.com/library/toolbar/3.0/images/banners/TechNetB_masthead_ltr.gif
+
+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
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://img.microsoft.com/library/gallery/templates/MNP2.Common/images/3squares.gif
+
+R0lGODdhHgAGAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///yH5BAAAAAAALAAAAAAeAAYA
+QAgvAJsJHPivoMGBBA0WRMgwocKGChc2ZBjxH8SIEyli1Pgwo8ODHEF6bFbxYkeEAQEAOw==
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://img.microsoft.com/library/media/1033/technet/images/prodtechnol/sql/2000/deploy/logsh06.gif
+
+R0lGODlh5wA5APcAALUAALUQEL0hIb0xMcZCQs5SUs5jY9Zzc9Z7e96MjOecnOetre+9vffOzvfe
+3v/v7///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////ywAAAAA5wA5AAAI/gAhCBxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaNHACBDihxJsqTJkyhTqlw50qPLlzATspxJs6ZN
+mjFz6vx4s6fPnyt3Ch1aEajRo0aJKl3KEKnTpzOZSp06kCWBq1izYh1QkwACBQzChlWAgABNAVqv
+4lTIAEGBtHAPUJ3rEGUABA0cMmA5QMGDhQ8UcFWJ4ODagwoE0CRAt7HCkwf+PtybcgCDiAwGnyxs
+8DDBB2a7Oh7duaQCiZQ3V0yAknNBzwIfaF5MurbAkq4hpiYZIK/FBgFM5q4atWCBnoxtkyYpgOJu
+kb0zOpgdcvjt4gOf01Y+muTpidoB/kTX6CD4SOsQYB9Hzr37SMkGFyCYT78+AgMlfSd8wEA+WPgI
+NUASep498FNy7dE1EoIF4WcTegMJVtIACQBYEGsiEYgdBOGBVIADCYZ4XUgGHOTATc0hxIBiKAmw
+QEKzacgSQQqYFICFOjUg33wK6DcaA2TNtwCIj2V4UIcpXYbYTBDuJmNQAyFgEoMUPbDAAQSYF1JB
+DyDA4kgCfAeBg0YiVOOCBjmggAGhVVeQAwZoKRIBl4EGgFzEuZmmTQOYWZOYBbX5pEoESVnSjRV1
+KWdL2S1K0gB/nTlnQmTqKVAD6+FWqEoHpEYQmkvSBOhAAtqkZEGSDpoSQUhCOpEC/o4yCsECfD1w
+4kgBJPRlSKcekJJrlaKUJQB95glSrmbGahKOELRJU7EGmacqSp/ZdapDwZokUHkzyeWojwPdCl1s
+1Gk6K00JMACgdwk1UG5JBRzp04sGrTftScb9+pCvUGabkgOZhpRAqCLFK9tKhT2grEkpfgqmQg/w
+29pB/rIUr0EY3qstqyoNAO5BtM4oLq67inQAhiKVaFC2A0usr6QjDaAsuCXhmRADCwNw7UA5p4Rs
+QZRpXFK9KgUw8H7KFoCAWGFBAPOxSk73aKkiNUxQyQA00GEABqQrFogBgzQAkTgP+JppgIUtEpEE
+jXzTxwYCIDRJBh2sEgHMQmDo/kgfIuQySPTG5igEjrK9LW/N4pZ3yYhGSNLFxo406kEoy8rxTztf
+N7flpPZ87MeEk6QyQs6CZFDpAECgduACPQ2AAeFN7vCkZ9MeueQMAUe3QUiylHl6chu2IUG6rzRq
+yCJBS/ruBKEOQeUg2SxQtmuaXaTtt0M+oknSIyS1SPJiLvzm4CNkt0qA/q3zQs63TRJj2lGJtQOM
+5307ldADcPTt7xt+0Pmp4x1QfgcS8m1JIRVjl0BKFwCmObBp7Wsd1r4ztHAxJ25zeiDTQPS+cO1t
+bbWzC+tMpCX/QcBtNsFR3AxouoUswHNZ296MnKe+kEALdadyXadqUpj3uQsy/qVZSQHsdy6Q/A5r
+M7FadgoovBkx5AFqY44Mg+I81IFEAGz7IBOnR5IF9E5T70PS6Ga3kgCMMFBbbJBPuieQjDURSg2B
+VUoGZpPEtcSKZrxcwQaCtQfkT19hZJgJgUcTNg4kZFQ6XAfROJJB2uuNhHrI90zSpzpW8SRjRNwJ
+H+U0HhIyJHRCyeRuMsbaMStbiSxdKXmWRjJGEiIJTJ0l6WZFS6EuL64rzBfNFkiU7KwnhiSk7BQG
+quZBh1mpOggSNxaRBBYvJAGAS1bsCL5aHitK7MrWZbSDFmkS4DS9PIn2PkmTn9VOiZ3D3gJF8jtq
+oseazIMIBmlJEiJS84Db/vqjkrRTIqzdrynFhACmKsi/MiJEJLITqJZSGZKEOolgr4QICrekxeAp
+JIIDUR+95ik2FEKuXKBzJQASWa4QFvIgVAOAAPLmgNAw1GMwMhlCYlm+ZtpIoLwJ6To5xyHrQaBc
++dtf/pQHyZEaRH0mjaY3sQKhpwWzp0ZF1Rk3pU7i7ag+pSPeUrGyTABcDHUwXR5PteMa9WFNPxM1
+gP0WSdWayjCREFGbQ0ECV7YQ1CFa1GNPjoY86CBgkBgVCFkPWTQ1MiehbMUm5wIakYmOB2h0hcgz
+EQqRvC7xJ/Cx5gC0cs8W6jWNHIUXlxamFXAyVm/xJGddG1Kxx152tQaZ/mxVFWJZwf5kjNyiYmqh
+WiaBvIuyBenrxBIrkIqaFLYKES6uRkUZ5B4yZ/tjSG15a5PGpZNQgaVuK2sIQoO4DoynNa4rnXsk
+z6n1tU/kLnR0WpDp7tJGoJPt0LI7WFIJKyHfPQ85o9pWfL41Il2aSQC+09yFJGYm0U2Ie1Gk0wfQ
+tLMB/KxFB2LNqZIKnj0Mb2pPe7MDwBBMCThTXR3gJZsIoFO0tdx7q4YAe54wTtqir0+3FatVgiyK
+wSMuahcLFdFc6Lc99uwJ7UPk+iSAvQEKUn2cRuQ0ETlzDtZSXzDzZL3ZZ3JtsY9Jg5wShnKZmSIK
+80K+bJXTkfmuYk5z/hDPfBIvs9m/sypAARbApgSb6S0HGCSXEkCAAiQUaGyC3UJITB97KuDP4cJS
+np/IZz+v+c06hmeQiadSxQSAKxDKKLHMYt3/cYUAinlq61Q6rHZeSi3ru6hzFZOlTtft06HeMqRB
+aeZZR7inYckxcqNKK0TT6mhZYt9KIWCgTA8EPzYOFHL3MrAamfp5rzOLAIZj65K4GdIcy3UPd60y
+Whl7L/SSkrAPZ+wxva4hV1nIXraZaoRgKEz4kbWtr/3mbO9l2wtBtocn/L8ABOAADlqIlAiwb2ML
+6C5/Zd+y17duhXAL4Pxd4FYnTvGlshFLFc/4VrXagAZ8s1miJnZZNwjAJkS/+CqKYYgCrlJyh2cF
+yQcIucfzMvOFNIBNXnGxmne+raUhIADj5LnQh/6qkAyR6A8JCAAAOw==
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.microsoft.com/library/gallery/templates/MNP2.Common/images/arrow_px_down.gif
+
+R0lGODlhBwAJAIABAAAzzP///yH5BAEAAAEALAAAAAAHAAkAAAIMjI+Am9yhoDRRVnoKADs=
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.microsoft.com/library/gallery/templates/MNP2.Common/images/arrow_px_up.gif
+
+R0lGODlhBwAJAIABAAAzzP///yH5BAEAAAEALAAAAAAHAAkAAAIMjI+AoWrOooTr1QsLADs=
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: http://www.microsoft.com/library/toolbar/3.0/text.aspx?t=TQ%3d%3d&f=000000&b=FFFFFF&font=Microsoft+Logo+95%2c+13.5pt&w=105&h=29&a=0&l=0&v=0&c=iCuKhBbHd9I%2fiZ7LyOa2BcbHA5M%3d
+
+/9j/4AAQSkZJRgABAQEAGAAYAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAdAGkDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9kv8A
+g7H/AGqvEf7NP/BJ/XPD/gXxbrXg3x5+0P8AG74VfCTRNa8LazfaD4o07SdHvtR+L/ia/wBL1TSr
+i11KxtprH4ZQeHNVuLWeMSWviUadOxi1Fo3/AI6P+CXP/BXf4vfsZ/8ABOz/AIK2z678XPiT4u/a
+S+ML/sifBT9liw8XeMfE/inxN4d8WfE7Sv2n7bxr4+8M22t6jqOoaYfBXguxi8S2WoWNs9nc+Mo/
+AGmagrDVrHP9M/8AwdGf8E/v+CgH/BSX4q/sJfBj9lz4HeIvGvwT8Az+NvEPxU+JNn4h8D6Z4d8M
++JviZ4j8G+FLS61fTvEfivRdZv28CeEvC2s69J/ZOmXe6x8T3EEL3F2/2eL8lNZ/4N3/ANsm3/b/
+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
+ACiiigAooooAKKKKACiiigD/2Q==
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: http://c.microsoft.com/trans_pixel.asp?source=www&TYPE=PV&p=technet_prodtechnol_sql_2000_maintain&URI=%2ftechnet%2fprodtechnol%2fsql%2f2000%2fmaintain%2flogship2.mspx%3fpf%3dtrue&GUID=1F4FC18C-F71E-47FB-8FC9-612F8EE59C61&lc=en-us
+
+R0lGODlhAQABAIAAAP8zzAAAACH5BAEAAAAALAAAAAABAAEAQAIChFEAOwA=
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.microsoft.com/TechNet/mnp_utility.mspx/templatecss?template=%2flibrary%2fgallery%2ftemplates%2fMNP2.GenericArticle&shell=%2ftechnet%2fprodtechnol%2fsql%2fconfig_2000.xml&locale=en-us
+
+H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 130%; MARGIN: 12px 0px 0px; COLOR: =
+#000000; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+H2.subtitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: =
+95%; PADDING-BOTTOM: 0px; MARGIN: 2px 0px 0em; PADDING-TOP: 0px; =
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: =
+95%; PADDING-BOTTOM: 4px; MARGIN: 0px; PADDING-TOP: 8px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 80%; PADDING-BOTTOM: 4px; MARGIN: 8px 0px =
+0px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 75%; MARGIN: 0px; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif
+}
+H5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; MARGIN: 0px; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif
+}
+H6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; MARGIN: 10px 0px 0px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 70%; PADDING-BOTTOM: =
+1em; MARGIN: 0px; LINE-HEIGHT: 140%; PADDING-TOP: 0px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+.date {
+	MARGIN-TOP: 9px; FONT-SIZE: 65%; COLOR: #666666; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif
+}
+.datePipe {
+	COLOR: #cccccc
+}
+.byline {
+	FONT-SIZE: 65%; COLOR: #666666; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+HR {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; COLOR: #cccccc; HEIGHT: 1px
+}
+.ancestorLinks {
+	MARGIN-TOP: 12px; FONT-SIZE: 65%; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.ancestorLinks A:visited {
+	COLOR: #0033cc
+}
+.ancestorLinks A:hover {
+	COLOR: #ff6600
+}
+.ancestorLabel {
+	COLOR: #666666
+}
+.topOfPage {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 65%; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+A.topOfPage:visited {
+	COLOR: #0033cc
+}
+A.topOfPage:hover {
+	COLOR: #ff6600
+}
+A {
+	COLOR: #0033cc
+}
+A:link {
+	COLOR: #0033cc
+}
+A:visited {
+	COLOR: #800080
+}
+A:hover {
+	COLOR: #ff6600
+}
+A:active {
+	COLOR: #800080
+}
+.onThisPage {
+	PADDING-LEFT: 2px; FONT-SIZE: 70%; PADDING-BOTTOM: 8px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+.overview {
+	PADDING-TOP: 10px
+}
+.overviewPara {
+	PADDING-TOP: 10px
+}
+.tocLink {
+	FONT-SIZE: 65%; PADDING-BOTTOM: 8px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.tocLink A:visited {
+	COLOR: #0033cc
+}
+.tocLink A:hover {
+	COLOR: #ff6600
+}
+.tocBullet {
+	PADDING-LEFT: 4px; FONT-SIZE: 70%; WIDTH: 13px; COLOR: #cccccc; =
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.containerHeader {
+	BACKGROUND: #999999
+}
+.containerFooter {
+	BACKGROUND: #999999; MARGIN-BOTTOM: 12px
+}
+.relatedLink {
+	FONT-SIZE: 65%; PADDING-BOTTOM: 7px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.rlBullet {
+	FONT-SIZE: 70%; WIDTH: 10px; COLOR: #999999; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif
+}
+TABLE.sidebar {
+	MARGIN-RIGHT: 20px
+}
+.sidebarContent {
+	BACKGROUND: #e9e9e6
+}
+.downloadCaption {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 65%; PADDING-BOTTOM: =
+0px; PADDING-TOP: 5px; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+.streams {
+	FONT-SIZE: 65%; PADDING-BOTTOM: 11px; PADDING-TOP: 10px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+.downloadRule {
+	BACKGROUND: #999999; MARGIN: 13px 1px 8px; OVERFLOW: hidden; WIDTH: =
+149px; BORDER-BOTTOM: #ffffff 1px solid; HEIGHT: 2px
+}
+.getPlayer {
+	FONT-SIZE: 65%; PADDING-TOP: 5px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.getPlayer2 {
+	FONT-SIZE: 65%; PADDING-TOP: 16px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.file {
+	MARGIN-TOP: 7px
+}
+.fileDetails {
+	FONT-SIZE: 65%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.streamPipe {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 0px; COLOR: =
+#cccccc; PADDING-TOP: 0px
+}
+.fnSpacer {
+	OVERFLOW: hidden; HEIGHT: 4px
+}
+.figureCaption {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 65%; PADDING-BOTTOM: =
+0px; PADDING-TOP: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+.figureRule {
+	BACKGROUND: #cccccc; MARGIN: 7px 0px 18px; OVERFLOW: hidden; HEIGHT: =
+1px
+}
+TABLE.pullQuote {
+	MARGIN: 7px 20px 0px 0px
+}
+.pullQuoteRule1 {
+	BACKGROUND: #999999; OVERFLOW: hidden; HEIGHT: 1px
+}
+.pullQuoteRule2 {
+	MARGIN-TOP: 14px; BACKGROUND: #999999; MARGIN-BOTTOM: 9px; OVERFLOW: =
+hidden; HEIGHT: 1px
+}
+.sourcelessQuote {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 12px; FONT-SIZE: 80%; =
+PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #cc6600; LINE-HEIGHT: 155%; =
+PADDING-TOP: 18px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.directQuote {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 80%; PADDING-BOTTOM: =
+0px; MARGIN: 0px; COLOR: #cc6600; LINE-HEIGHT: 155%; PADDING-TOP: 18px; =
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.citation {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 65%; PADDING-BOTTOM: =
+0px; MARGIN: 0px; PADDING-TOP: 11px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.citationAuthor {
+	FONT-WEIGHT: bold
+}
+.startQuote {
+	PADDING-RIGHT: 11px; PADDING-TOP: 20px
+}
+.endQuote {
+	PADDING-LEFT: 9px; PADDING-BOTTOM: 5px
+}
+H5.sidebar {
+	PADDING-TOP: 8px
+}
+.farGraphic {
+	MARGIN: 0px 0px 9px 9px
+}
+.nearGraphic {
+	MARGIN: 0px 9px 9px 0px
+}
+UL {
+	PADDING-LEFT: 2.75ex; MARGIN: 0px
+}
+LI {
+=09
+}
+.numberedList {
+	MARGIN-BOTTOM: -1px
+}
+.numberedList P {
+	PADDING-BOTTOM: 1.1em
+}
+.listNumber {
+	PADDING-RIGHT: 1.5ex; PADDING-LEFT: 2.1ex
+}
+.sidebarHeader {
+	BACKGROUND: #999999; OVERFLOW: hidden; WIDTH: 165px; HEIGHT: 1px
+}
+.sidebarFooter {
+	BACKGROUND: #999999; MARGIN-BOTTOM: 12px; OVERFLOW: hidden; WIDTH: =
+165px; HEIGHT: 1px
+}
+.pageNumber {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-SIZE: 70%; PADDING-BOTTOM: =
+0px; PADDING-TOP: 0px; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+.footnote {
+	FONT: 70% Arial; POSITION: relative; TOP: -0.2em
+}
+TD.footnote {
+	PADDING-RIGHT: 1ex; FONT: 55% Arial
+}
+.footnoteText {
+	FONT-SIZE: 65%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.footnotes {
+	MARGIN-TOP: 11px; MARGIN-BOTTOM: 36px
+}
+.sidebarClass {
+	MARGIN: 2px 7px 8px
+}
+.sidebarClass P {
+	FONT-SIZE: 65%; PADDING-BOTTOM: 11px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif
+}
+.bioImage {
+	PADDING-RIGHT: 7px; PADDING-BOTTOM: 14px
+}
+PRE.codeSample {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 25px; FONT-SIZE: 70%; BACKGROUND: =
+#dddddd; MARGIN-BOTTOM: 1em; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; =
+FONT-FAMILY: Lucida Console, Courier New
+}
+SPAN.codeSample {
+	FONT-FAMILY: Lucida Console, Courier New
+}
+.linkList {
+	MARGIN-TOP: 2px
+}
+.linkItem {
+	PADDING-RIGHT: 0em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0em; FONT: 70% =
+Verdana; PADDING-TOP: 0em
+}
+.linkBullet {
+	FONT-SIZE: 120%; COLOR: #a6a6a6; PADDING-TOP: 1px
+}
+.listBullet {
+	FONT-SIZE: 120%; COLOR: #a6a6a6
+}
+.listItem {
+	PADDING-RIGHT: 0em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0em; =
+PADDING-TOP: 0em
+}
+.sidebarClass .listBullet {
+	FONT-SIZE: 100%
+}
+.sidebarClass .listItem {
+	PADDING-LEFT: 4px
+}
+.sidebarClass .listItem P {
+	PADDING-BOTTOM: 0em
+}
+.forMoreInfo HR {
+	MARGIN-TOP: 8px
+}
+.forMoreInfo H3 {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 3px
+}
+.forMoreInfo PRE {
+	FONT: 70%/130% Verdana
+}
+.dataTable {
+	BORDER-BOTTOM: #cccccc 1px solid
+}
+.dataTable TD {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; =
+PADDING-TOP: 5px
+}
+.tableHeader {
+	FONT-WEIGHT: bold; FONT-SIZE: 80%; BACKGROUND: #999999; COLOR: #ffffff; =
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.superHeader {
+	FONT-SIZE: 70%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.stdHeader {
+	BACKGROUND: #cccccc; COLOR: #000000
+}
+.stdHeader TD {
+	BORDER-TOP: #cccccc 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 70%; =
+BORDER-LEFT: #cccccc 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+.subHeader {
+	BACKGROUND: #dddddd
+}
+.subHeader TD {
+	BORDER-TOP: #cccccc 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 70%; =
+BORDER-LEFT: #cccccc 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif
+}
+.record TD {
+	BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid
+}
+.record TD TD {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: =
+0px; BORDER-RIGHT-WIDTH: 0px
+}
+.evenRecord {
+	BACKGROUND: #e9e9e6
+}
+.evenRecord TD {
+	BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid
+}
+.evenRecord TD TD {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: =
+0px; BORDER-RIGHT-WIDTH: 0px
+}
+.rowLabel {
+	FONT-WEIGHT: bold; BACKGROUND: #f0f0f0
+}
+P.lastInCell {
+	PADDING-BOTTOM: 0px
+}
+.keyLegend {
+	PADDING-BOTTOM: 6px
+}
+.key {
+	PADDING-RIGHT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 65%; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+.legend {
+	FONT-SIZE: 65%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.legendBullets {
+	COLOR: #666666
+}
+.dataBullets {
+	COLOR: #666666; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.tableFootnotes {
+	MARGIN-TOP: 7px; MARGIN-LEFT: 5px
+}
+.dataTableBottomMargin {
+	MARGIN-BOTTOM: 18px; OVERFLOW: hidden; HEIGHT: 1px
+}
+TR.sortable {
+	BACKGROUND: #ccc; COLOR: #000000
+}
+TD.sortable {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; =
+PADDING-TOP: 0px
+}
+TD.sortable A {
+	CURSOR: hand
+}
+TD.sortable A:hover {
+	BACKGROUND: #e0e0e0
+}
+TD.sortable TABLE {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #fff 1px =
+solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 70%; =
+PADDING-BOTTOM: 5px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #999 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, =
+sans-serif; ; HEIGHT: =
+expression(this.parentElement.parentElement.clientHeight)
+}
+TD.selectedSort {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; =
+PADDING-TOP: 0px
+}
+TD.selectedSort A {
+	BACKGROUND: #999; CURSOR: hand
+}
+TD.selectedSort TABLE {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #666 1px =
+solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 70%; =
+PADDING-BOTTOM: 5px; BORDER-LEFT: #666 1px solid; COLOR: white; =
+PADDING-TOP: 5px; BORDER-BOTTOM: #ccc 1px solid; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif; ; HEIGHT: =
+expression(this.parentElement.parentElement.clientHeight)
+}
+.simpleForm {
+	MARGIN: 20px 0px 1.5ex
+}
+.simpleForm P {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; PADDING-BOTTOM: 0px; FONT-FAMILY: =
+Verdana, Arial, Helvetica, sans-serif
+}
+.simpleForm DIV {
+	MARGIN-BOTTOM: 14px
+}
+.simpleFormSelect {
+	MARGIN-TOP: 2px; FONT-SIZE: 70%; MARGIN-RIGHT: 6px; FONT-FAMILY: =
+Tahoma, Arial, Helvetica, sans-serif
+}
+.simpleFormSelectSmall {
+	MARGIN-TOP: 2px; FONT-SIZE: 70%; WIDTH: 123px; MARGIN-RIGHT: 6px; =
+FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif
+}
+.simpleFormSelectMedium {
+	MARGIN-TOP: 2px; FONT-SIZE: 70%; WIDTH: 169px; MARGIN-RIGHT: 6px; =
+FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif
+}
+.simpleFormSelectLarge {
+	MARGIN-TOP: 2px; FONT-SIZE: 70%; WIDTH: 261px; MARGIN-RIGHT: 6px; =
+FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif
+}
+.simpleFormText {
+	MARGIN-TOP: 1px; FONT-SIZE: 70%; WIDTH: 261px; MARGIN-RIGHT: 6px; =
+FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif
+}
+.simpleFormSubmit {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 2px; FONT-SIZE: 70%; PADDING-BOTTOM: =
+0px; PADDING-TOP: 0px; FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif
+}
+.alertType {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; MARGIN: 0px; LINE-HEIGHT: 140%; =
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.microsoft.com/library/mnp/2/aspx/css.aspx?locale=en-us&name=Footer&static=Page
+
+.mnpFooterTopRow A {
+	FONT-WEIGHT: bold; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterTopRow A:visited {
+	FONT-WEIGHT: bold; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterTopRow A:hover {
+	FONT-WEIGHT: bold; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterBottomRow {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; =
+PADDING-TOP: 4px
+}
+.mnpFooterBottomRow A {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterBottomRow A:visited {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterBottomRow A:hover {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.mnpFooterTopRow {
+	FONT: bold 65% Verdana
+}
+.mnpFooterBottomRow {
+	FONT: 70% Tahoma, Helvetica
+}
+BODY {
+	MARGIN: 0px
+}
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: text/xml;
+	charset="ks_c_5601-1987"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.microsoft.com/library/toolbar/3.0/css.aspx?c=/technet/prodtechnol/sql/config_2000.xml
+
+BODY {
+	MARGIN: 0px
+}
+#msviRegionIdGraphic {
+	PADDING-LEFT: 7px
+}
+#msviGlobalToolbar {
+	PADDING-LEFT: 1px
+}
+#msviGlobalToolbar A {
+	FONT: 65% Verdana; COLOR: #ffffff; TEXT-DECORATION: none
+}
+.gt0 {
+	BORDER-RIGHT: #173b71 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: =
+#173b71 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 100%; PADDING-BOTTOM: =
+2px; BORDER-LEFT: #173b71 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: =
+#173b71 1px solid
+}
+.gt1 {
+	BORDER-RIGHT: #b8b8b8 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: =
+#b8b8b8 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 100%; BACKGROUND: =
+#0069af; PADDING-BOTTOM: 2px; BORDER-LEFT: #b8b8b8 1px solid; =
+PADDING-TOP: 0px; BORDER-BOTTOM: #b8b8b8 1px solid
+}
+.gtsep {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-BOTTOM: 2px; FONT: 65% =
+Verdana; COLOR: #b8b8b8; PADDING-TOP: 0px
+}
+#msviBanner {
+	TEXT-ALIGN: right
+}
+#msviGlobalSearch {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 6px; FONT: 65% Verdana; COLOR: =
+#000000; PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+#msviSearchForm {
+	MARGIN: -1px 0px 0px
+}
+#msviSearchBox {
+	FONT: 110% Tahoma; WIDTH: 247px; xheight: 18px
+}
+#msviGoButton {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0em; FONT: =
+110% Tahoma; MARGIN-LEFT: 6px; PADDING-TOP: 0em; POSITION: relative; =
+TOP: 0px
+}
+#msviNoSearch {
+	WIDTH: 271px
+}
+#msviMastheadHR {
+	BACKGROUND: #a0a0a0; OVERFLOW: hidden; HEIGHT: 1px
+}
+#msviLocalToolbar {
+	PADDING-RIGHT: 0px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 0px; =
+FONT-SIZE: 100%; BACKGROUND: #f1f1f1; PADDING-BOTTOM: 1px; PADDING-TOP: =
+2px; BORDER-BOTTOM: #999 1px solid
+}
+#msviLocalToolbar TD {
+	FONT-SIZE: 100%
+}
+#msviLocalToolbar A {
+	FONT: 70% Verdana; COLOR: black; TEXT-DECORATION: none
+}
+.lt0 {
+	BORDER-RIGHT: #f1f1f1 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: =
+#f1f1f1 1px solid; PADDING-LEFT: 6px; BACKGROUND: #f1f1f1; =
+PADDING-BOTTOM: 0px; BORDER-LEFT: #f1f1f1 1px solid; PADDING-TOP: 0px; =
+BORDER-BOTTOM: #f1f1f1 1px solid
+}
+.lt1 {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #999 1px =
+solid; PADDING-LEFT: 6px; BACKGROUND: #ccc; PADDING-BOTTOM: 0px; =
+BORDER-LEFT: #999 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #999 1px =
+solid
+}
+.ltsep {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-BOTTOM: 0px; FONT: 70% =
+Verdana; COLOR: #a9a9a9; PADDING-TOP: 0px
+}
+.localToolbar FORM {
+	MARGIN: 0px
+}
+.localToolbar INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; FONT: 70% =
+Tahoma, Helvetica; MARGIN-RIGHT: 8px; PADDING-TOP: 0px
+}
+#msviHomePageLink {
+	PADDING-LEFT: 2px; WIDTH: 177px
+}
+#msviHomePageLink TD {
+	FONT-SIZE: 100%
+}
+#msviHomePageLink A {
+	BORDER-RIGHT: #f1f1f1 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: =
+#f1f1f1 1px solid; DISPLAY: block; PADDING-LEFT: 6px; BACKGROUND: =
+#f1f1f1; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #f1f1f1 1px =
+solid; PADDING-TOP: 2px; BORDER-BOTTOM: #f1f1f1 1px solid; WHITE-SPACE: =
+nowrap
+}
+#msviHomePageLink A:hover {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #999 1px =
+solid; DISPLAY: block; PADDING-LEFT: 6px; BACKGROUND: #ccc; =
+PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #999 1px solid; =
+PADDING-TOP: 2px; BORDER-BOTTOM: #999 1px solid
+}
+#msviFooter {
+	BORDER-TOP: #a0a0a0 1px solid; FONT: 70% Tahoma, Helvetica; POSITION: =
+absolute
+}
+#msviFooter TD {
+	FONT-SIZE: 100%
+}
+#msviLocalFooter {
+	PADDING-LEFT: 10px; MARGIN: 0px; PADDING-TOP: 8px
+}
+#msviGlobalFooter {
+	PADDING-LEFT: 10px; PADDING-BOTTOM: 13px; MARGIN: 0px; PADDING-TOP: =
+10px
+}
+#msviFooter A {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #03c; MARGIN-RIGHT: 2px
+}
+#msviFooter A:visited {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #03c
+}
+#msviFooter A:hover {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; =
+COLOR: #f60
+}
+#msviFooter NOBR {
+	COLOR: #a9a9a9; MARGIN-RIGHT: 5px
+}
+.msviPassport {
+	PADDING-RIGHT: 7px; PADDING-LEFT: 10px
+}
+.msviPPSpace {
+	PADDING-RIGHT: 87px
+}
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.microsoft.com/library/mnp/2/aspx/js.aspx?&path=/library/gallery/components/ratingcontrol/ratingcontrol.js
+
+
+function adjustIFrameSize (iframeWindow) {
+
+    ratingHeight =3D document.getElementById("footerId");
+    if(ratingHeight)ratingHeight.height =3D null;
+
+if (iframeWindow.document.height) {var iframeElement =3D =
+document.getElementById(iframeWindow.name);iframeElement.style.height =
+=3D iframeWindow.document.height + 17 + 'px';}else if (document.all) =
+{var iframeElement =3D document.all[iframeWindow.name];if =
+(iframeWindow.document.compatMode && iframeWindow.document.compatMode =
+!=3D 'BackCompat') {iframeElement.style.height =3D =
+iframeWindow.document.documentElement.scrollHeight + 5 + 'px';} else =
+{iframeElement.style.height =3D iframeWindow.document.body.scrollHeight =
++ 5 + 'px';}}
+
+}
+
+------=_NextPart_000_0065_01C7234F.E6BC5800
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://js.microsoft.com/library/svy/broker.js
+
+// //=0A=
+// Copyright 2005 SurveySite. All rights reserved.=0A=
+=0A=
+// Name: Microsoft-www=0A=
+// Date: 2006-12-14=0A=
+=0A=
+=0A=
+// Multiple script protection.=0A=
+if (!window.SiteRecruit_Globals) {=0A=
+=0A=
+// Create the configuration, globals, and constants namespaces.=0A=
+var SiteRecruit_Config =3D new Object();=0A=
+var SiteRecruit_Globals =3D new Object();=0A=
+var SiteRecruit_Constants =3D new Object();=0A=
+=0A=
+// Validation variables.=0A=
+SiteRecruit_Globals.parseFlag =3D false;=0A=
+SiteRecruit_Globals.empty =3D false;=0A=
+=0A=
+// Browser information.=0A=
+SiteRecruit_Constants.browser =3D new Object();=0A=
+SiteRecruit_Constants.browser.internetExplorer =3D 'Microsoft Internet =
+Explorer';=0A=
+SiteRecruit_Constants.browser.mozilla =3D 'Netscape';=0A=
+=0A=
+// Check browser information.=0A=
+SiteRecruit_Globals.browserName =3D navigator.appName; =0A=
+SiteRecruit_Globals.browserVersion =3D parseInt(navigator.appVersion);=0A=
+=0A=
+// Initialize browser flags.=0A=
+SiteRecruit_Globals.isInternetExplorer =3D false;=0A=
+SiteRecruit_Globals.isMozilla =3D false;=0A=
+SiteRecruit_Globals.isInternetExplorer7 =3D false;=0A=
+=0A=
+// Check for Internet Explorer based browsers.=0A=
+if (SiteRecruit_Globals.browserName =3D=3D =
+SiteRecruit_Constants.browser.internetExplorer)=0A=
+{=0A=
+    if (SiteRecruit_Globals.browserVersion > 3)=0A=
+    {=0A=
+        // Only 5.5 and above.=0A=
+        var a =3D navigator.userAgent.toLowerCase();=0A=
+        if (a.indexOf("msie 5.0") =3D=3D -1 && a.indexOf("msie 5.0") =
+=3D=3D -1)=0A=
+        {=0A=
+            SiteRecruit_Globals.isInternetExplorer =3D true;=0A=
+        }=0A=
+        =0A=
+        // Check for 7.=0A=
+        if (a.indexOf("msie 7") !=3D -1)=0A=
+        {=0A=
+            SiteRecruit_Globals.isInternetExplorer7 =3D true;=0A=
+        }=0A=
+    }=0A=
+}=0A=
+=0A=
+// Check for Mozilla based browsers.=0A=
+if (SiteRecruit_Globals.browserName =3D=3D =
+SiteRecruit_Constants.browser.mozilla)=0A=
+{=0A=
+    if (SiteRecruit_Globals.browserVersion > 4)=0A=
+    {=0A=
+        SiteRecruit_Globals.isMozilla =3D true;=0A=
+    }=0A=
+}=0A=
+=0A=
+// Cookie lifetime.=0A=
+SiteRecruit_Constants.cookieLifetimeType =3D new Object();=0A=
+SiteRecruit_Constants.cookieLifetimeType.duration =3D 1;=0A=
+SiteRecruit_Constants.cookieLifetimeType.expireDate =3D 2;=0A=
+    =0A=
+// Invitation type.=0A=
+SiteRecruit_Constants.invitationType =3D new Object();=0A=
+SiteRecruit_Constants.invitationType.standard =3D 0;=0A=
+SiteRecruit_Constants.invitationType.email =3D 1;=0A=
+SiteRecruit_Constants.invitationType.domainDeparture =3D 2;=0A=
+    =0A=
+// Cookie type flags.=0A=
+SiteRecruit_Constants.cookieType =3D new Object();=0A=
+SiteRecruit_Constants.cookieType.alreadyAsked =3D 1;=0A=
+SiteRecruit_Constants.cookieType.inProgress =3D 2;=0A=
+=0A=
+// Alignment types.=0A=
+SiteRecruit_Constants.horizontalAlignment =3D new Object();=0A=
+SiteRecruit_Constants.horizontalAlignment.left =3D 0;=0A=
+SiteRecruit_Constants.horizontalAlignment.middle =3D 1;=0A=
+SiteRecruit_Constants.horizontalAlignment.right =3D 2;=0A=
+SiteRecruit_Constants.verticalAlignment =3D new Object();=0A=
+SiteRecruit_Constants.verticalAlignment.top =3D 0;=0A=
+SiteRecruit_Constants.verticalAlignment.middle =3D 1;=0A=
+SiteRecruit_Constants.verticalAlignment.bottom =3D 2;=0A=
+=0A=
+// Survey cookie configuration.=0A=
+SiteRecruit_Config.cookieName =3D 'msresearch';=0A=
+SiteRecruit_Config.cookieDomain =3D '.microsoft.com';=0A=
+SiteRecruit_Config.cookiePath =3D '/';=0A=
+=0A=
+// Cookie element join character.=0A=
+SiteRecruit_Constants.cookieJoinChar =3D ':';=0A=
+=0A=
+// Settings for cookie lifetime.=0A=
+SiteRecruit_Config.cookieLifetimeType =3D 1;=0A=
+=0A=
+    // Duration of the cookie in days.=0A=
+    SiteRecruit_Config.cookieDuration =3D 90;=0A=
+=0A=
+// Duration of the rapid cookie.=0A=
+SiteRecruit_Config.rapidCookieDuration =3D 0;=0A=
+// //=0A=
+// Copyright 2005 SurveySite. All rights reserved.=0A=
+=0A=
+// KeepAlive class definition.=0A=
+function SiteRecruit_KeepAlive()=0A=
+{=0A=
+    // Time between page checks.=0A=
+    this.keepAlivePollDelay =3D 1000;=0A=
+=0A=
+    // Unique (well, sorta) ID for this page.=0A=
+    this.id =3D Math.random();=0A=
+=0A=
+    // Attach methods.=0A=
+    this.attemptStart =3D KeepAlive_attemptStart;=0A=
+    this.checkCookie =3D KeepAlive_checkCookie;=0A=
+    this.inProgressCookieExists =3D KeepAlive_inProgressCookieExists;=0A=
+=0A=
+    // Start the KeepAlive if an in-progress cookie exists.=0A=
+    function KeepAlive_attemptStart()=0A=
+    {=0A=
+        if (this.inProgressCookieExists())=0A=
+        {=0A=
+            setInterval('SiteRecruit_Globals.keepAlive.checkCookie()', =
+this.keepAlivePollDelay);=0A=
+        }=0A=
+    }=0A=
+    =0A=
+    // Check and update the cookie.=0A=
+    function KeepAlive_checkCookie()=0A=
+    {=0A=
+        if (this.inProgressCookieExists())=0A=
+        {=0A=
+            var j =3D SiteRecruit_Constants.cookieJoinChar;=0A=
+            =0A=
+            // Update the cookie with the current time and location.=0A=
+            var c =3D SiteRecruit_Config.cookieName + '=3D' + =
+SiteRecruit_Constants.cookieType.inProgress=0A=
+                + j + escape(document.location)=0A=
+                + j + (new Date()).getTime()=0A=
+                + j + this.id=0A=
+                + '; path=3D' + SiteRecruit_Config.cookiePath;=0A=
+            =0A=
+            if (SiteRecruit_Config.cookieDomain !=3D '')=0A=
+            {=0A=
+                c +=3D '; domain=3D' + SiteRecruit_Config.cookieDomain;=0A=
+            }=0A=
+            =0A=
+            document.cookie =3D c;=0A=
+        }=0A=
+    }=0A=
+=0A=
+    // Return true if an in-progress cookie exists.=0A=
+    function KeepAlive_inProgressCookieExists()=0A=
+    {=0A=
+        var c =3D SiteRecruit_Config.cookieName + '=3D' + =
+SiteRecruit_Constants.cookieType.inProgress;=0A=
+    =0A=
+        if (document.cookie.indexOf(c) !=3D -1)=0A=
+        {=0A=
+            return true;=0A=
+        }=0A=
+        =0A=
+        return false;=0A=
+    }=0A=
+}=0A=
+=0A=
+// Create the KeepAlive if a suitable cookie exists.=0A=
+SiteRecruit_Globals.keepAlive =3D new SiteRecruit_KeepAlive();=0A=
+SiteRecruit_Globals.keepAlive.attemptStart();=0A=
+// //=0A=
+// Copyright 2005 SurveySite. All rights reserved.=0A=
+=0A=
+// Broker class definition.=0A=
+function SiteRecruit_PageConfigurationBroker()=0A=
+{=0A=
+    this.urls =3D new Array();=0A=
+    this.pages =3D new Array();=0A=
+    this.priorities =3D new Array();=0A=
+        =0A=
+    // Attach methods.=0A=
+    this.start =3D PageConfigurationBroker_start;=0A=
+    this.initializeMapping =3D PageConfigurationBroker_initializeMapping;=0A=
+    this.getConfigurationForPage =3D =
+PageConfigurationBroker_getConfigurationForPage;=0A=
+    this.loadConfiguration =3D PageConfigurationBroker_loadConfiguration;=0A=
+=0A=
+    // Start the Broker.=0A=
+    function PageConfigurationBroker_start(url)=0A=
+    {=0A=
+        this.initializeMapping();=0A=
+        =0A=
+        // Decide if there are surveys to run for this page.=0A=
+        var configuration =3D this.getConfigurationForPage(url);=0A=
+        =0A=
+        // If there is, load id up.=0A=
+        if (configuration !=3D null)=0A=
+        {=0A=
+            this.loadConfiguration(configuration);=0A=
+        }=0A=
+    }=0A=
+    =0A=
+    // Initializes the page mapping.=0A=
+    function PageConfigurationBroker_initializeMapping()=0A=
+    {=0A=
+        var u =3D this.urls;=0A=
+        var p =3D this.pages;=0A=
+        var x =3D this.priorities;=0A=
+        =0A=
+                     =0A=
+                            // http://www.microsoft.com/about=0A=
+                u[0] =3D =
+'//[\\w\\.-]+/about((/)|(/((default)|(index))\\.((html?)|(aspx?)|(mspx)))=
+)?$';=0A=
+                p[0] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt1.js';=0A=
+                x[0] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/athome...=0A=
+                u[1] =3D '//[\\w\\.-]+/athome';=0A=
+                p[1] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt16.js';=0A=
+                x[1] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/athome/security...=0A=
+                u[2] =3D '//[\\w\\.-]+/athome/security';=0A=
+                p[2] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt12-2943mt16.js';=0A=
+                x[2] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/atwork...=0A=
+                u[3] =3D '//[\\w\\.-]+/atwork';=0A=
+                p[3] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt2.js';=0A=
+                x[3] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/australia/smallbusiness...=0A=
+                u[4] =3D =
+'//[\\w\\.-]+/australia/smallbusiness(/(?!sbrp)|$)';=0A=
+                p[4] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Australia.js';=0A=
+                x[4] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/brasil/pequenasempresas...=0A=
+                u[5] =3D '//[\\w\\.-]+/brasil/pequenasempresas';=0A=
+                p[5] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Brazil.js';=0A=
+                x[5] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/business...=0A=
+                u[6] =3D '//[\\w\\.-]+/business(/(?!executivecircle)|$)';=0A=
+                p[6] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt8.js';=0A=
+                x[6] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/canada/smallbiz...=0A=
+                u[7] =3D '//[\\w\\.-]+/canada/smallbiz(/(?!sbplus)|$)';=0A=
+                p[7] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_EnglishCanada.js';=0A=
+                x[7] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/china/smallbusiness...=0A=
+                u[8] =3D '//[\\w\\.-]+/china/smallbusiness';=0A=
+                p[8] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_China.js';=0A=
+                x[8] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/communities...=0A=
+                u[9] =3D '//[\\w\\.-]+/communities';=0A=
+                p[9] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt4.js';=0A=
+                x[9] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/communities/forums/default.mspx=0A=
+                u[10] =3D =
+'//[\\w\\.-]+/communities/forums/default\\.mspx$';=0A=
+                p[10] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3320mt-forums-2943mt4.js';=0A=
+                x[10] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/downloads...=0A=
+                u[11] =3D '//[\\w\\.-]+/downloads';=0A=
+                p[11] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt30-2944mt1.js';=0A=
+                x[11] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/dynamics...=0A=
+                u[12] =3D '//[\\w\\.-]+/dynamics';=0A=
+                p[12] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt3.js';=0A=
+                x[12] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/education...=0A=
+                u[13] =3D =
+'//[\\w\\.-]+/education(/(?!facultyconnection)|$)';=0A=
+                p[13] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt5.js';=0A=
+                x[13] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/events...=0A=
+                u[14] =3D '//[\\w\\.-]+/events';=0A=
+                p[14] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt6.js';=0A=
+                x[14] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/exchange...=0A=
+                u[15] =3D '//[\\w\\.-]+/exchange';=0A=
+                p[15] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt7.js';=0A=
+                x[15] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/france/entrepreneur...=0A=
+                u[16] =3D =
+'//[\\w\\.-]+/france/entrepreneur(/(?!plus)|$)';=0A=
+                p[16] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_France.js';=0A=
+                x[16] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/france/msdn...=0A=
+                u[17] =3D '//[\\w\\.-]+/france/msdn';=0A=
+                p[17] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt4-msdn.js';=0A=
+                x[17] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/france/technet...=0A=
+                u[18] =3D '//[\\w\\.-]+/france/technet';=0A=
+                p[18] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt4-technet.js';=0A=
+                x[18] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/france/windows...=0A=
+                u[19] =3D '//[\\w\\.-]+/france/windows(/|$)';=0A=
+                p[19] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt4-windows.js';=0A=
+                x[19] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/germany/kleinunternehmen...=0A=
+                u[20] =3D =
+'//[\\w\\.-]+/germany/kleinunternehmen(/(?!small-business-plus)|$)';=0A=
+                p[20] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Germany.js';=0A=
+                x[20] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/germany/msdn/...=0A=
+                u[21] =3D '//[\\w\\.-]+/germany/msdn';=0A=
+                p[21] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt3-msdn.js';=0A=
+                x[21] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/germany/server...=0A=
+                u[22] =3D '//[\\w\\.-]+/germany/server(/|$)';=0A=
+                p[22] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt3-wss.js';=0A=
+                x[22] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/germany/windows/...=0A=
+                u[23] =3D '//[\\w\\.-]+/germany/windows(/|$)';=0A=
+                p[23] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt3-windows.js';=0A=
+                x[23] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/hardware=0A=
+                u[24] =3D =
+'//[\\w\\.-]+/hardware((/)|(/default\\.asp)|(/default\\.mspx)|(/default\\=
+.aspx))?$';=0A=
+                p[24] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2546mt_Home.js';=0A=
+                x[24] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/hardware/broadbandnetworking=0A=
+                u[25] =3D =
+'//[\\w\\.-]+/hardware/broadbandnetworking((/)|(/default\\.asp)|(/default=
+\\.mspx)|(/default\\.aspx))?$';=0A=
+                p[25] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2546mt_BroadbandNetworking.js=
+';=0A=
+                x[25] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/hardware/digitalcommunication=0A=
+                u[26] =3D =
+'//[\\w\\.-]+/hardware/digitalcommunication((/)|(/((default)|(index))\\.(=
+(html?)|(aspx?)|(mspx))))?$';=0A=
+                p[26] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3370mt.js';=0A=
+                x[26] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/hardware/mouseandkeyboard/default.mspx=0A=
+                u[27] =3D =
+'//[\\w\\.-]+/hardware/mouseandkeyboard/default\\.mspx$';=0A=
+                p[27] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2546mt_MNKB.js';=0A=
+                x[27] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/financialservices...=0A=
+                u[28] =3D '//[\\w\\.-]+/industry/financialservices';=0A=
+                p[28] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt50.js';=0A=
+                x[28] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/government...=0A=
+                u[29] =3D '//[\\w\\.-]+/industry/government';=0A=
+                p[29] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt51.js';=0A=
+                x[29] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/healthcare...=0A=
+                u[30] =3D '//[\\w\\.-]+/industry/healthcare';=0A=
+                p[30] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt54.js';=0A=
+                x[30] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/hospitality...=0A=
+                u[31] =3D '//[\\w\\.-]+/industry/hospitality';=0A=
+                p[31] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt56.js';=0A=
+                x[31] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/manufacturing...=0A=
+                u[32] =3D '//[\\w\\.-]+/industry/manufacturing';=0A=
+                p[32] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt52.js';=0A=
+                x[32] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/professionalservices...=0A=
+                u[33] =3D '//[\\w\\.-]+/industry/professionalservices';=0A=
+                p[33] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt55.js';=0A=
+                x[33] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/industry/retail...=0A=
+                u[34] =3D '//[\\w\\.-]+/industry/retail';=0A=
+                p[34] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt53.js';=0A=
+                x[34] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/ISAserver...=0A=
+                u[35] =3D '//[\\w\\.-]+/ISAserver';=0A=
+                p[35] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt22.js';=0A=
+                x[35] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/italy/pmi...=0A=
+                u[36] =3D '//[\\w\\.-]+/italy/pmi(/(?!plus)|$)';=0A=
+                p[36] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Italy.js';=0A=
+                x[36] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/japan/msdn...=0A=
+                u[37] =3D '//[\\w\\.-]+/japan/msdn';=0A=
+                p[37] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt2-msdn.js';=0A=
+                x[37] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/japan/office...=0A=
+                u[38] =3D '//[\\w\\.-]+/japan/office';=0A=
+                p[38] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt2-office.js';=0A=
+                x[38] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/japan/smallbiz...=0A=
+                u[39] =3D '//[\\w\\.-]+/japan/smallbiz';=0A=
+                p[39] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Japan.js';=0A=
+                x[39] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/japan/technet...=0A=
+                u[40] =3D '//[\\w\\.-]+/japan/technet';=0A=
+                p[40] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt2-technet.js';=0A=
+                x[40] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/japan/windowsxp...=0A=
+                u[41] =3D '//[\\w\\.-]+/japan/windowsxp';=0A=
+                p[41] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt2-wxp.js';=0A=
+                x[41] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/learning=0A=
+                u[42] =3D =
+'//[\\w\\.-]+/learning((/)|(/default\\.asp)|(/default\\.mspx)|(/default\\=
+.aspx))?$';=0A=
+                p[42] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt9.js';=0A=
+                x[42] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/licensing...=0A=
+                u[43] =3D '//[\\w\\.-]+/licensing';=0A=
+                p[43] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt10.js';=0A=
+                x[43] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/licensing/mpla/program.aspx=0A=
+                u[44] =3D '//[\\w\\.-]+/licensing/mpla/program\\.aspx$';=0A=
+                p[44] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_blank.js';=0A=
+                x[44] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/mexico/pymes...=0A=
+                u[45] =3D '//[\\w\\.-]+/mexico/pymes';=0A=
+                p[45] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Mexico.js';=0A=
+                x[45] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/midsizebusiness...=0A=
+                u[46] =3D '//[\\w\\.-]+/midsizebusiness';=0A=
+                p[46] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3123mt.js';=0A=
+                x[46] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/netherlands/ondernemers...=0A=
+                u[47] =3D =
+'//[\\w\\.-]+/netherlands/ondernemers(/(?!plus)|$)';=0A=
+                p[47] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Netherlands.js';=0A=
+                x[47] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/presspass...=0A=
+                u[48] =3D '//[\\w\\.-]+/presspass(/|$)';=0A=
+                p[48] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_p11351358.js';=0A=
+                x[48] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/products/info/...=0A=
+                u[49] =3D '//[\\w\\.-]+/products/info';=0A=
+                p[49] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt31.js';=0A=
+                x[49] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/security...=0A=
+                u[50] =3D '//[\\w\\.-]+/security';=0A=
+                p[50] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt11-2944mt1.js';=0A=
+                x[50] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/smallbusiness...=0A=
+                u[51] =3D =
+'//[\\w\\.-]+/smallbusiness(/(?!small-business-plus)|$)';=0A=
+                p[51] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_UnitedStates.js';=0A=
+                x[51] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/spain/empresas...=0A=
+                u[52] =3D '//[\\w\\.-]+/spain/empresas';=0A=
+                p[52] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2933mt_Spain.js';=0A=
+                x[52] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/sql...=0A=
+                u[53] =3D '//[\\w\\.-]+/sql';=0A=
+                p[53] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt14.js';=0A=
+                x[53] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/technet...=0A=
+                u[54] =3D =
+'//[\\w\\.-]+/technet(/(?!mnp_utility\\.mspx/framesmenu)|$)';=0A=
+                p[54] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2944mt1-2943mt33.js';=0A=
+                x[54] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/branch...=0A=
+                u[55] =3D '//[\\w\\.-]+/technet/itsolutions/branch(/|$)';=0A=
+                p[55] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-B-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[55] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/cits...=0A=
+                u[56] =3D '//[\\w\\.-]+/technet/itsolutions/cits(/|$)';=0A=
+                p[56] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-C-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[56] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/cits/interopmigration...=0A=
+                u[57] =3D =
+'//[\\w\\.-]+/technet/itsolutions/cits/interopmigration(/|$)';=0A=
+                p[57] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-I-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[57] =3D 2;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/cits/mo...=0A=
+                u[58] =3D =
+'//[\\w\\.-]+/technet/itsolutions/cits/mo(/|$)';=0A=
+                p[58] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-M-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[58] =3D 2;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/smbiz...=0A=
+                u[59] =3D '//[\\w\\.-]+/technet/itsolutions/smbiz(/|$)';=0A=
+                p[59] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-S-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[59] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/itsolutions/wssra...=0A=
+                u[60] =3D '//[\\w\\.-]+/technet/itsolutions/wssra(/|$)';=0A=
+                p[60] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-W-2944mt1-2943mt33-p10=
+828145mt.js';=0A=
+                x[60] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/security...=0A=
+                u[61] =3D '//[\\w\\.-]+/technet/security';=0A=
+                p[61] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt34-2943mt33-2944mt1-p10=
+828145mt.js';=0A=
+                x[61] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/technet/security/topics...=0A=
+                u[62] =3D '//[\\w\\.-]+/technet/security/topics(/|$)';=0A=
+                p[62] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_3248mt-topics-2944mt1-2943mt3=
+3-2943mt34-p10828145mt.js';=0A=
+                x[62] =3D 2;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/windows/ie...=0A=
+                u[63] =3D '//[\\w\\.-]+/windows/ie(/|$)';=0A=
+                p[63] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt17.js';=0A=
+                x[63] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/windowsserver2003...=0A=
+                u[64] =3D '//[\\w\\.-]+/windowsserver2003';=0A=
+                p[64] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt15.js';=0A=
+                x[64] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/windowsvista....=0A=
+                u[65] =3D '//[\\w\\.-]+/windowsvista(/|$)';=0A=
+                p[65] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt21.js';=0A=
+                x[65] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // http://www.microsoft.com/windowsxp...=0A=
+                u[66] =3D '//[\\w\\.-]+/windowsxp';=0A=
+                p[66] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt18.js';=0A=
+                x[66] =3D 0;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/windowsxp/mediacenter...=0A=
+                u[67] =3D '//[\\w\\.-]+/windowsxp/mediacenter';=0A=
+                p[67] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt19-2943mt18.js';=0A=
+                x[67] =3D 1;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/windowsxp/tabletpc=0A=
+                u[68] =3D =
+'//[\\w\\.-]+/windowsxp/tabletpc((/)|(/((default)|(index))\\.((html?)|(as=
+px?)|(mspx))))?$';=0A=
+                p[68] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt20-2943mt18-default.js'=
+;=0A=
+                x[68] =3D 2;=0A=
+                                        =0A=
+             =0A=
+                            // =
+http://www.microsoft.com/windowsxp/tabletpc...=0A=
+                u[69] =3D '//[\\w\\.-]+/windowsxp/tabletpc';=0A=
+                p[69] =3D =
+'/library/svy/SiteRecruit_PageConfiguration_2943mt20-2943mt18.js';=0A=
+                x[69] =3D 1;=0A=
+                                        =0A=
+            }=0A=
+    =0A=
+    // Return the appropriate configuration for the given URL, if any.=0A=
+    function PageConfigurationBroker_getConfigurationForPage(url)=0A=
+    {=0A=
+        =0A=
+        var currentScore =3D 0;=0A=
+        var currentMatch =3D -1;=0A=
+        =0A=
+        // Iterate over each URL.=0A=
+        for (var i =3D 0; i < this.urls.length; i++)=0A=
+        {=0A=
+            // Do the reg exp match.=0A=
+            var r =3D new RegExp(this.urls[i], 'i');=0A=
+            if (url.toString().search(r) !=3D -1)=0A=
+            {=0A=
+                // Take the current if the score is equal or better.=0A=
+                var newScore =3D this.priorities[i];=0A=
+                if (newScore >=3D currentScore)=0A=
+                {=0A=
+                    currentMatch =3D i;=0A=
+                    currentScore =3D newScore;=0A=
+                }=0A=
+            }=0A=
+        }=0A=
+        =0A=
+        // If there was a match, return the appropriate page =
+configuration.=0A=
+        var page =3D null;=0A=
+        if (currentMatch >=3D 0)=0A=
+        {=0A=
+            page =3D this.pages[currentMatch];=0A=
+        }=0A=
+        =0A=
+                =0A=
+        return page;=0A=
+    }=0A=
+    =0A=
+    // Dynamically loads the associated configuration.=0A=
+    function PageConfigurationBroker_loadConfiguration(configuration)=0A=
+    {=0A=
+        =0A=
+        document.write('<script language=3D"JavaScript" src=3D"' + =
+configuration + '"></script>');=0A=
+    }=0A=
+}=0A=
+=0A=
+try=0A=
+{=0A=
+    // Only run if the browser is supported.=0A=
+    if (SiteRecruit_Globals.isInternetExplorer || =
+SiteRecruit_Globals.isMozilla)=0A=
+    {=0A=
+        // Create and start the Broker for the current location.=0A=
+        SiteRecruit_Globals.broker =3D new =
+SiteRecruit_PageConfigurationBroker();=0A=
+        SiteRecruit_Globals.broker.start(window.location);=0A=
+    }=0A=
+}=0A=
+catch (e)=0A=
+{=0A=
+    // Suppress any errors.=0A=
+}=0A=
+=0A=
+SiteRecruit_Globals.parseFlag =3D true;=0A=
+=0A=
+// Multiple script protection.=0A=
+}
+------=_NextPart_000_0065_01C7234F.E6BC5800--

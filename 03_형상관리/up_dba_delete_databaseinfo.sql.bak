@@ -1,0 +1,45 @@
+/*************************************************************************  
+* 프로시저명  : dbo.up_dba_delete_databaseinfo 
+* 작성정보    : 2010-02-12 by choi bo ra
+* 관련페이지  :  
+* 내용        : 통합 모니터링 형상관리 테이블 삭제
+* 수정정보    :
+**************************************************************************/
+ALTER PROCEDURE dbo.up_dba_delete_databaseinfo
+     @type          varchar(10) = 'DAY',
+     @server_id     int ,
+     @instance_id   int 
+AS
+/* COMMON DECLARE */
+SET NOCOUNT ON
+
+/* USER DECLARE */
+DECLARE @get_dt     DATETIME
+SET @get_dt = CONVERT(nvarchar(10), getdate(), 121)
+
+/* BODY */
+IF @type = 'DAY'
+BEGIN
+    DELETE  DATABASE_FILE_LIST WHERE reg_dt >= @get_dt and reg_dt < @get_dt + 1
+                                   and server_id = @server_id and  instance_id = @instance_id
+    DELETE  DISK_SIZE_HIST WHERE reg_dt >= @get_dt and reg_dt < @get_dt + 1
+                                   and server_id = @server_id 
+    DELETE  DATABASE_LIST WHERE reg_dt >= @get_dt and reg_dt < @get_dt + 1
+                                   and server_id = @server_id 
+    DELETE  VLF_HIST WHERE reg_dt >= @get_dt and reg_dt < @get_dt + 1
+                                   and server_id = @server_id 
+                                   
+	-- 임시성 테이블
+	TRUNCATE TABLE TABLE_SIZE_INFO
+	
+	 
+	 DELETE A
+	 FROM TABLE_SIZE AS A
+        JOIN TABLE_BASE  AS B ON A.TABLE_ID = B.TABLE_ID
+     WHERE B.SERVER_ID =  @SERVER_ID  AND A.REG_DT >= @GET_DT AND A.REG_DT < @GET_DT + 1                        
+               
+  
+END
+
+
+RETURN

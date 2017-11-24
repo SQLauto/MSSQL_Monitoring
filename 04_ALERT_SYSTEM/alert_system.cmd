@@ -1,0 +1,1 @@
+sqlcmd -S(local) -E  -Q"DECLARE @vMessage NVARCHAR(2000);SET @vMessage=REPLACE('"%1"','""','');EXECUTE DBMON.dbo.up_mon_alert_system 'TOTAL', 1,@vMessage, 'Y'"

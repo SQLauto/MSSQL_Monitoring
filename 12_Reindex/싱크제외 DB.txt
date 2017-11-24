@@ -1,0 +1,9 @@
+select S.server_name, D.*
+FROM DBO.SERVERINFO S WITH(NOLOCK) 	
+	JOIN  DBO.INSTANCE I WITH(NOLOCK) ON S.SERVER_ID = I.SERVER_ID                                                                                                
+	JOIN DATABASE_LIST_TODAY AS D WITH(NOLOCK)  ON S.SERVER_ID = D.SERVER_ID
+	LEFT JOIN DB_SYNK AS Y WITH(NOLOCK) ON Y.SYNC_SERVER_ID = S.SERVER_ID AND Y.DB_NAME = D.db_name 
+WHERE I.SUZIP_YN = 'Y' AND S.SERVER_NAME <> 'DW2'   AND S.USE_YN = 'Y'   	
+	AND Y.SERVER_ID IS NULL
+	AND D.db_id > 4
+order by s.server_id, s.server_name

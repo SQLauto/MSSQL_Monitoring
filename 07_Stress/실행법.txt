@@ -1,0 +1,15 @@
+psexec 컴퓨터 이름  -u -p  'd.. \ostr.cmd'
+
+psexec \\211.115.74.62  -u -p  'd.. \ostr.cmd'
+
+psexec.exe \\iauditordb1 d:\stress\Ostress_in_ALL.cmd
+psexec.exe \\iauditordb2 d:\stress\Ostress_in_ALL.cmd
+psexec.exe \\iauditordb3 d:\stress\Ostress_in_ALL.cmd
+
+psexec.exe \\iauditordb1 cmd
+taskkill /F /IM ostress.exe
+
+psexec.exe \\211.115.74.62 cmd
+
+Ostress_in_01.cmd
+Ostress_in_02.cmd

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Query">
+  <Items>
+    <LogicalFolder Name="연결" Type="2" Sorted="true">
+      <Items />
+    </LogicalFolder>
+    <LogicalFolder Name="쿼리" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="Data_대랑삭제방법.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>Data_대랑삭제방법.sql</FullPath>
+        </FileNode>
+        <FileNode Name="G_logshipping.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>G_logshipping.sql</FullPath>
+        </FileNode>
+        <FileNode Name="G_SQL재시작시_recmpile.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>G_SQL재시작시_recmpile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="G_나의쇼핑정보_recompile.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>G_나의쇼핑정보_recompile.sql</FullPath>
+        </FileNode>
+        <FileNode Name="G_사이트차단.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>G_사이트차단.sql</FullPath>
+        </FileNode>
+        <FileNode Name="JOB_스케줄조회.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>JOB_스케줄조회.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SET_STATISTICS.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>SET_STATISTICS.sql</FullPath>
+        </FileNode>
+        <FileNode Name="사용되지않은_Index.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>사용되지않은_Index.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="기타" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

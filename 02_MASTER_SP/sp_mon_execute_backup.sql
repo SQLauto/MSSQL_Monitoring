@@ -1,20 +1,23 @@
 use master
 go
-
 /*************************************************************************
 * 프로시저명  : dbo.sp_mon_execute
 * 작성정보    : 2010-02-11 by 최보라
 * 관련페이지  :
 * 내용        : sysprocess조회
-* 수정정보    : 2013-10-18 BY 최보라, 조건 정리
+* 수정정보    : 2013-10-18 BY 최보라, 조건 정리,
+              2017-11-29 by 최보라, 확장 이벤트 쿼리 추가
 *************************************************************************/
 ALTER PROCEDURE [dbo].[sp_mon_execute_backup]
+  @reg_dt   date = null,
+  @db_name  sysname = null
 
 AS
 
 SET NOCOUNT ON
+SET @reg_dt = case when @reg_dt is null then convert(date, getdate()) else @reg_dt end
 
-
+  -- backupIO 예상 완료 시간
     select    convert(time(0), getdate()) as run_time,
                 r.session_id as [sid]
         ,CONVERT(NUMERIC(6, 2), [r].[percent_complete]) AS [PERCENT Complete]
@@ -75,3 +78,39 @@ SET NOCOUNT ON
              where  r.session_id != @@spid
         -- and  [r].[estimated_completion_time] > 0
        and   r.command in ('BACKUP DATABASE','RESTORE DATABASE');
+
+-- extended event query
+;WITH xevent AS
+(
+  SELECT timestamp,operation_type,database_name,trace_message,event_sequence, session_id
+  FROM
+  (
+   SELECT
+    timestamp  = xevent.value(N'(event/@timestamp)[1]', N'datetime'),
+    operation_type  = xevent.value(N'(event/data[@name="operation_type"]/text)[1]', N'nvarchar(32)'),
+    database_name  = xevent.value(N'(event/data[@name="database_name"])[1]', N'nvarchar(128)'),
+    trace_message = xevent.value(N'(event/data[@name="trace_message"])[1]', N'nvarchar(max)'),
+    event_sequence  = xevent.value(N'(event/action[@name="event_sequence"])[1]', N'int')
+  ,session_id =xevent.value(N'(event/action[@name="session_id"])[1]', N'int')
+   FROM
+   (
+    SELECT xevent = CONVERT(XML, event_data)
+     FROM sys.fn_xe_file_target_read_file
+        (N'D:\backup_extended_event\backup_extended_event_*.xel', NULL, NULL, NULL)
+          --(N'E:\SQL2016\backup_extended_event\backup_extended_event_*.xel', NULL, NULL, NULL)
+   ) AS y
+  ) AS xevent
+  where trace_message is not null  and database_name  = case when @db_name is null then database_name else @db_name end
+)
+SELECT
+  [timestamp] = dateadd(hh, 9,xevent.timestamp),
+  [event_sequence] = xevent.event_sequence,
+  [operation_type] = xevent.operation_type,
+  session_id = xevent.session_id,
+  db_name = xevent.database_name,
+  [message] = replace(xevent.trace_message,char(10), '') ,
+  [duration(ms)] = COALESCE(DATEDIFF(millisecond, xevent.timestamp,
+             LEAD(xevent.timestamp, 1) OVER(ORDER BY timestamp,  event_sequence)),0)
+FROM xevent
+WHERE [timestamp] >= @reg_dt
+ORDER BY [timestamp], event_sequence;
